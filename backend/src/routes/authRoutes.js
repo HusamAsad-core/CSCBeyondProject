@@ -25,6 +25,7 @@ router.post(
 );
 
 // ✨ ADD THESE - Social login stubs
+//router.get('/me', protect, AuthController.getMe);
 router.post('/google', AuthController.googleLogin);
 router.post('/facebook', AuthController.facebookLogin);
 router.post('/apple', AuthController.appleLogin);

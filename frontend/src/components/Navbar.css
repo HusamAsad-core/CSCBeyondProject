@@ -1,0 +1,156 @@
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 60px;
+  background-color: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.nav-logo-img {
+  height: 45px;
+  width: auto;
+}
+
+.navbar-links-center {
+  display: flex;
+  gap: 35px;
+}
+
+.nav-link-item {
+  text-decoration: none;
+  color: #0d2a5a; /* Iris Blue */
+  font-weight: 600;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.nav-link-item:hover {
+  color: #f48c06; /* Orange */
+}
+
+/* Auth Buttons */
+.auth-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.btn-login-outline {
+  text-decoration: none;
+  color: #f48c06;
+  border: 1px solid #f48c06;
+  padding: 10px 25px;
+  border-radius: 10px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.btn-login-outline:hover {
+  background-color: #f48c06;
+  color: #fff;
+}
+
+.btn-register-solid {
+  text-decoration: none;
+  background-color: #f48c06;
+  color: #fff;
+  padding: 10px 25px;
+  border-radius: 10px;
+  font-weight: 700;
+  transition: opacity 0.3s ease;
+}
+
+.btn-register-solid:hover {
+  opacity: 0.9;
+}
+
+/* User Profile & Dropdown */
+.user-profile-wrapper {
+  position: relative;
+  cursor: pointer;
+  padding: 5px 0;
+}
+
+.user-info-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-greeting-text {
+  color: #0d2a5a;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.user-name-bold {
+  font-weight: 800;
+  color: #0d2a5a;
+}
+
+.arrow-icon {
+  border: solid #0d2a5a;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  transition: transform 0.3s ease;
+  margin-bottom: 3px;
+}
+
+.arrow-icon.open {
+  transform: rotate(-135deg);
+  margin-bottom: -3px;
+}
+
+.nav-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #ffffff;
+  min-width: 180px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  padding: 10px 0;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-link {
+  text-decoration: none;
+  color: #0d2a5a;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.dropdown-link:hover {
+  background-color: #f8f9fa;
+  color: #f48c06;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background-color: #eee;
+  margin: 8px 0;
+}
+
+.dropdown-logout-btn {
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 10px 20px;
+  color: #dc3545; /* Red for logout */
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.dropdown-logout-btn:hover {
+  background-color: #fff5f5;
+}

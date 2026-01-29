@@ -3,21 +3,18 @@ const AuthService = require('../services/authService');
 class AuthController {
   static async register(req, res, next) {
     try {
-      // 1. Get the data from the request
-      const { name, email, password } = req.body;
+      // FIX: We must extract confirmPassword from the request body!
+      const { name, email, password, confirmPassword } = req.body;
 
-      // 2. Call the service. 
-      // If 'name' is missing, our updated AuthService logic handles it.
-      const result = await AuthService.register(name, email, password);
+      // FIX: Pass confirmPassword to the service
+      const result = await AuthService.register(name, email, password, confirmPassword);
 
-      // 3. Send back the success response
       res.status(201).json({
         success: true,
         message: 'User registered successfully',
         data: result,
       });
     } catch (error) {
-      // 4. Pass errors to your global error handler
       next(error);
     }
   }
@@ -26,6 +23,7 @@ class AuthController {
     try {
       const { email, password } = req.body;
       const result = await AuthService.login(email, password);
+      
       res.status(200).json({
         success: true,
         message: 'Login successful',
@@ -36,18 +34,25 @@ class AuthController {
     }
   }
 
-  // Social login placeholders...
-  static async googleLogin(req, res, next) {
-    res.status(501).json({ message: "Google login not implemented yet" });
+  static async getMe(req, res, next) {
+    try {
+      // req.user.id must be set by your authentication middleware
+      const user = await AuthService.getUserById(req.user.id); 
+      if (!user) return res.status(404).json({ success: false, message: 'User not found' });
+
+      res.status(200).json({
+        success: true,
+        data: user 
+      });
+    } catch (error) {
+      next(error);
+    }
   }
 
-  static async facebookLogin(req, res, next) {
-    res.status(501).json({ message: "Facebook login not implemented yet" });
-  }
-
-  static async appleLogin(req, res, next) {
-    res.status(501).json({ message: "Apple login not implemented yet" });
-  }
+  // Social login placeholders
+  static async googleLogin(req, res, next) { res.status(501).json({ message: "Not implemented" }); }
+  static async facebookLogin(req, res, next) { res.status(501).json({ message: "Not implemented" }); }
+  static async appleLogin(req, res, next) { res.status(501).json({ message: "Not implemented" }); }
 }
 
 module.exports = AuthController;
