@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+.register-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 5%;
+  background-color: #fff;
+}
+
+.register-content-wrapper {
+  display: flex;
+  width: 100%;
+  max-width: 1150px;
+  align-items: center;
+  gap: 50px;
+}
+
+/* Updated Box: No Borders, Soft Shadow */
+.outer-border-box {
+  flex: 1;
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 40px;
+  /* This creates the soft edge look without a line */
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.05); 
+  border: none; /* Removed the blue line */
+}
+
+.inner-form-box {
+  border: none; /* Removed the inner blue line */
+  text-align: center;
+}
+
+/* Typography Specs from your request */
+.register-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600; 
+  font-size: 45px;
+  line-height: 100%;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.title-blue { color: #1E3A8A; }
+.title-orange { color: #F97316; }
+
+/* Input Fonts matching the picture */
+.figma-input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #E2E8F0;
+  padding: 15px 0;
+  margin-bottom: 25px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px; /* Matches the clean Figma UI */
+  color: #64748B;
+  outline: none;
+  background: transparent;
+}
+
+.figma-input::placeholder {
+  color: #CBD5E1;
+  font-weight: 400;
+}
+
+/* Small "Already Created?" Text */
+.login-link-text {
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  color: #94A3B8;
+  margin-top: 15px;
+}
+
+.login-link-text a {
+  color: #1E3A8A;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Button & Social Row */
+.btn-create-account {
+  background-color: #1E3A8A;
+  color: white;
+  width: 180px;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.social-login-row {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.soc-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  border: none; /* Default to no border */
+}
+
+.icon-img {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  object-fit: contain;
+}
+
+google-white {
+  background-color: #ffffff;
+  color: #64748B;
+  border: 1px solid #E2E8F0;
+}
+
+/* 2. Facebook Button: Specific Figma Blue */
+.fb-blue {
+  background-color: #4267B2; /* Facebook Blue from your pic */
+  color: #ffffff;
+}
+
+/* 3. Apple Button: Dark Grey/Black */
+.apple-black {
+  background-color: #333333; /* Matches the dark shade in Figma */
+  color: #ffffff;
+}
+
+.soc-btn:hover {
+  opacity: 0.9;
+}
+
+.fb-blue { background-color: #1877F2; color: white; border: none; }
+.apple-black { background-color: #1C1C1E; color: white; border: none; }
+
+/* Illustration */
+.illustration-container { flex: 1.2; }
+.figma-img { width: 100%; height: auto; }

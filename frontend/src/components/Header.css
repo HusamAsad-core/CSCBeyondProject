@@ -1,0 +1,40 @@
+.main-header {
+  padding: 15px 5%;
+  background: #fff;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-img { height: 45px; }
+
+.nav-links a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #555;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.nav-links a.active { color: #ff7a00; } /* Orange Course Selector link */
+
+.btn-login-outline {
+  border: 1px solid #ff7a00;
+  color: #ff7a00;
+  padding: 8px 20px;
+  border-radius: 5px;
+  background: none;
+  margin-right: 10px;
+}
+
+.btn-orange {
+  background: #ff7a00;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 5px;
+}

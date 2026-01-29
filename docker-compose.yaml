@@ -1,0 +1,35 @@
+services:
+  db:
+    image: mysql:9.0.1
+    container_name: csc_beyond_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: CSCBeyond_courses_website1
+      MYSQL_USER: Husam
+      MYSQL_PASSWORD: Husam
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - mysql_data:/var/lib/mysql
+
+  backend:
+    build: ./backend
+    container_name: csc_beyond_backend
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      DB_HOST: db
+      DB_USER: Husam
+      DB_PASS: Husam
+      DB_NAME: CSCBeyond_courses_website1
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    depends_on:
+      - db
+
+volumes:
+  mysql_data:

@@ -1,0 +1,15 @@
+:root {
+  --iris: #5D5FEF;         /* Your main purple-blue */
+  --fuschia: #EF5DA8;      /* Your accent pink */
+  --dark-blue: #002244;    /* Your footer/nav color */
+  --light-gray: #F5F7FA;   /* Backgrounds */
+  --text-main: #333333;
+  --font-header: 'Inter', sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-header);
+  background-color: white;
+  color: var(--text-main);
+}

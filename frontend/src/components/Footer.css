@@ -1,0 +1,44 @@
+.main-footer {
+  background-color: #002b5b; /* Dark Blue from Figma */
+  color: white;
+  padding: 60px 5% 20px;
+  font-size: 14px;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footer-info { flex: 2; }
+.footer-links, .footer-contact { flex: 1; }
+
+.subscribe-box {
+  display: flex;
+  margin-top: 15px;
+}
+
+.subscribe-box input {
+  padding: 10px;
+  border-radius: 5px 0 0 5px;
+  border: none;
+  width: 200px;
+}
+
+.subscribe-box button {
+  background: #ff7a00;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 0 5px 5px 0;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 20px;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+}
