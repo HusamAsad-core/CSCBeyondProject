@@ -1,25 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import './Navbar.css'; // Changed from Register.css to its own CSS
+import './Navbar.css'; 
 import logoImg from '../assets/images/icons/logo.png';
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [userName, setUserName] = useState("");
+  const [userRole, setUserRole] = useState(""); // Track role for admin button
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   
   const token = localStorage.getItem('token');
 
   useEffect(() => {
     const storedName = localStorage.getItem('userName');
-    if (token && storedName) {
-      setUserName(storedName);
+    const storedRole = localStorage.getItem('userRole'); // Retrieve role
+    if (token) {
+      setUserName(storedName || "User");
+      setUserRole(storedRole || "");
     }
   }, [token]);
 
   const handleLogout = () => {
     localStorage.clear();
     setUserName("");
+    setUserRole("");
     navigate('/login');
     window.location.reload();
   };
@@ -53,13 +57,20 @@ const Navbar = () => {
           >
             <div className="user-info-trigger">
               <span className="user-greeting-text">
-                Hey, <span className="user-name-bold">{userName || "User"}</span>
+                Hey, <span className="user-name-bold">{userName}</span>
               </span>
               <i className={`arrow-icon ${isDropdownOpen ? 'open' : ''}`}></i>
             </div>
 
             {isDropdownOpen && (
               <div className="nav-dropdown-menu">
+                {/* Admin Only Link */}
+                {userRole === 'admin' && (
+                  <Link to="/admin" className="dropdown-link" style={{ color: '#f39c12', fontWeight: 'bold' }}>
+                    🛠 Admin Panel
+                  </Link>
+                )}
+                
                 <Link to="/profile" className="dropdown-link">Edit Profile</Link>
                 <Link to="/dashboard" className="dropdown-link">My Courses</Link>
                 <div className="dropdown-divider"></div>

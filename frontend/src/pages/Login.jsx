@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import './Register.css'; // Reusing the same CSS for consistency
+import './Register.css'; 
 
-// Asset Imports (Matches Register)
+// Asset Imports
 import authIllustration from '../assets/images/auth-illustration.png';
 import googleIcon from '../assets/images/icons/google-icon.svg';
 import facebookIcon from '../assets/images/icons/facebook-icon.svg';
@@ -37,9 +37,18 @@ const Login = () => {
       const data = await response.json();
 
       if (response.ok) {
+        // Save auth data
         localStorage.setItem('token', data.token);
-        localStorage.setItem('userName', data.user.name || formData.email.split('@')[0]);
-        navigate('/');
+        // We use data.user.role and data.user.username based on your backend controller
+        localStorage.setItem('userRole', data.user.role); 
+        localStorage.setItem('userName', data.user.username || data.user.name || formData.email.split('@')[0]);
+        
+        // Conditional Redirect
+        if (data.user.role === 'admin') {
+          navigate('/admin');
+        } else {
+          navigate('/');
+        }
         window.location.reload(); 
       } else {
         setPopup({ show: true, message: data.message || "Invalid credentials", type: 'error' });
@@ -51,7 +60,6 @@ const Login = () => {
 
   return (
     <div className="register-page-container">
-      {/* Popup for errors */}
       {popup.show && (
         <div className="modal-overlay">
           <div className="modal-content">
@@ -66,7 +74,6 @@ const Login = () => {
       )}
 
       <div className="register-content-wrapper">
-        {/* Left Side: Login Form */}
         <div className="form-column">
           <h2 className="register-title">
             <span className="title-blue">Log</span> <span className="title-orange">In</span>
@@ -114,7 +121,6 @@ const Login = () => {
           </div>
         </div>
 
-        {/* Right Side: Illustration */}
         <div className="image-column">
           <img src={authIllustration} alt="Login illustration" className="auth-hero-img" />
         </div>

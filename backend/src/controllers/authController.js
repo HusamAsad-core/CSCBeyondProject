@@ -24,10 +24,13 @@ class AuthController {
       const { email, password } = req.body;
       const result = await AuthService.login(email, password);
       
+      // FIX: Spread the result (token and user) directly into the response 
+      // or ensure the keys match what Login.jsx expects.
       res.status(200).json({
         success: true,
         message: 'Login successful',
-        data: result,
+        token: result.token, // Login.jsx expects data.token
+        user: result.user    // Login.jsx expects data.user
       });
     } catch (error) {
       next(error);

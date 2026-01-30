@@ -38,3 +38,167 @@
   padding: 8px 20px;
   border-radius: 5px;
 }
+
+.profile-dropdown {
+  position: absolute;
+  right: 0;
+  top: 45px;
+  background: white;
+  border-radius: 8px;
+  width: 200px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  padding: 10px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-label {
+  font-size: 11px;
+  font-weight: bold;
+  color: #f39c12;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.profile-dropdown a, .logout-link {
+  padding: 10px;
+  text-decoration: none;
+  color: #2c3e50;
+  font-size: 14px;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.profile-dropdown a:hover { background: #f8f9fa; }
+
+.btn-create-shortcut {
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.profile-dropdown {
+  position: absolute;
+  right: 0;
+  top: 45px;
+  background: white;
+  min-width: 200px;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  padding: 12px;
+  z-index: 1000;
+  border: 1px solid #f0f0f0;
+}
+
+.dropdown-label {
+  font-size: 10px;
+  color: #f39c12; /* Matches the orange in your screenshot */
+  font-weight: 800;
+  margin-bottom: 5px;
+  padding: 0 10px;
+}
+
+.dropdown-item {
+  display: block;
+  padding: 10px;
+  color: #2c3e50;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.dropdown-item:hover {
+  background: #f8f9fa;
+  color: #2980b9;
+}
+
+.user-dropdown-toggle {
+  background: none;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
+  color: #2c3e50;
+}
+
+.profile-dropdown {
+  position: absolute;
+  right: 0;
+  top: 40px;
+  background: white;
+  min-width: 190px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  padding: 12px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #eee;
+}
+
+/* Clickable Admin Label */
+.dropdown-admin-link {
+  font-size: 11px;
+  font-weight: 800;
+  color: #f39c12; /* Orange color from your screenshot */
+  text-decoration: none;
+  padding: 5px 10px;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.dropdown-admin-link:hover {
+  background: #fff9f0;
+}
+
+.dropdown-item {
+  padding: 8px 10px;
+  text-decoration: none;
+  color: #34495e;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 4px;
+  text-align: left;
+}
+
+.dropdown-item:hover {
+  background: #f8f9fa;
+}
+
+.logout-link {
+  border: none;
+  background: none;
+  width: 100%;
+  cursor: pointer;
+}
+
+.btn-create-shortcut {
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-create-shortcut:hover {
+  background: #219150;
+}
+
+.dropdown-divider {
+  border: 0;
+  border-top: 1px solid #eee;
+  margin: 10px 0;
+}

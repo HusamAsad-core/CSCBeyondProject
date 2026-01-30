@@ -18,6 +18,7 @@ const protect = async (req, res, next) => {
         res.status(401).json({ message: "Invalid token." });
     }
 };
+
 const restrictTo = (...roles) => {
   return (req, res, next) => {
     if (!req.user || !roles.includes(req.user.role)) {

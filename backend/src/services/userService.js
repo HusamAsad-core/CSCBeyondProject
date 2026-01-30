@@ -61,5 +61,26 @@ static async enrollInCourse(userId, course_id) {
         throw error;
     }
 }
+
+static async finishCourse(userId, courseId) {
+    // 1. Check if the enrollment exists
+    const [enrollment] = await db.execute(
+        'SELECT id, status FROM user_courses WHERE user_id = ? AND course_id = ?',
+        [userId, courseId]
+    );
+
+    if (enrollment.length === 0) {
+        throw new Error("You are not enrolled in this course.");
+    }
+
+    if (enrollment[0].status === 'Completed') {
+        throw new Error("Course is already marked as completed.");
+    }
+
+    return await db.execute(
+        'UPDATE user_courses SET status = "Completed" WHERE user_id = ? AND course_id = ?',
+        [userId, courseId]
+    );
+}
 }
 module.exports = UserService;

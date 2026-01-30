@@ -24,6 +24,20 @@ class PlanModel {
     ]);
     return result;
   }
+
+static async delete(id) {
+  const [result] = await promisePool.query('DELETE FROM pricing_plans WHERE id = ?', [id]);
+  return result;
+}
+
+// Ensure update also handles the correct fields
+static async update(id, data) {
+  const { name, course_limit, price, features, is_recommended } = data;
+  return await promisePool.query(
+    'UPDATE pricing_plans SET name=?, course_limit=?, price=?, features=?, is_recommended=? WHERE id=?',
+    [name, course_limit, price, features, is_recommended, id]
+  );
+}
 }
 
 module.exports = PlanModel;
