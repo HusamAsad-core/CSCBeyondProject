@@ -1,9 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const PlanController = require('../controllers/planController');
-// const { isAdmin } = require('../middleware/authMiddleware'); // You'll need this later
+// Import your protection middlewares
+const { protect, restrictTo } = require('../middleware/authMiddleware'); 
 
+// Public: Anyone can see the plans
 router.get('/', PlanController.getAllPlans);
-router.post('/', PlanController.createPlan); // Add isAdmin middleware here later
+
+// Protected: Only logged-in Admins can create plans
+router.post('/create', protect, restrictTo('admin'), PlanController.createPlan); 
 
 module.exports = router;

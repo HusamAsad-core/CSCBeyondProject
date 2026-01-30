@@ -8,6 +8,7 @@ const adminRoutes = require('./src/routes/adminRoutes');
 const userRoutes = require('./src/routes/userRoutes'); 
 const authRoutes = require('./src/routes/authRoutes');
 const courseRoutes = require('./src/routes/courseRoutes');
+const planRoutes = require('./src/routes/planRoutes');
 const errorHandler = require('./src/utils/errorHandler');
 
 const app = express();
@@ -23,6 +24,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes); 
 app.use('/api/admin', adminRoutes);
 app.use('/api/courses', courseRoutes);
+app.use('/api/plans', planRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {

@@ -9,14 +9,57 @@ class UserService {
     }
 
     static async selectPlan(userId, planId) {
-        const [planData] = await db.execute('SELECT course_limit FROM pricing_plans WHERE id = ?', [planId]);
-        if (planData.length === 0) throw new Error("Plan not found");
-        
-        const limit = planData[0].course_limit;
-        return await db.execute(
-            'UPDATE users SET plan_id = ?, course_credits = ? WHERE id = ?',
-            [planId, limit, userId]
-        );
+    // Ensure you get the 'rows' specifically
+    const [rows] = await db.execute('SELECT course_limit FROM pricing_plans WHERE id = ?', [planId]);
+    
+    if (!rows || rows.length === 0) throw new Error("Plan not found");
+    
+    const limit = rows[0].course_limit;
+
+    // If userId or limit are undefined here, MySQL throws the 'Bind parameters' error
+    return await db.execute(
+        'UPDATE users SET plan_id = ?, course_credits = ? WHERE id = ?',
+        [planId, limit, userId]
+    );
+}
+
+static async enrollInCourse(userId, course_id) {
+    // 1. Get the limit and the current count in one query
+    const [stats] = await db.execute(
+        `SELECT 
+            u.course_credits as total_allowed, 
+            (SELECT COUNT(*) FROM user_courses WHERE user_id = u.id) as currently_used
+         FROM users u 
+         WHERE u.id = ?`, 
+        [userId]
+    );
+
+    if (stats.length === 0) throw new Error("User not found");
+
+    const { total_allowed, currently_used } = stats[0];
+
+    // 2. Logic check: Is there room?
+    if (currently_used >= total_allowed) {
+        throw new Error(`You have used all ${total_allowed} course slots in your plan. Please upgrade for more.`);
     }
+
+    try {
+        // 3. Insert the link (SQL UNIQUE constraint prevents double-picking)
+        await db.execute(
+            'INSERT INTO user_courses (user_id, course_id) VALUES (?, ?)',
+            [userId, course_id]
+        );
+
+        return {
+            remaining: total_allowed - (currently_used + 1),
+            total: total_allowed
+        };
+    } catch (error) {
+        if (error.code === 'ER_DUP_ENTRY') {
+            throw new Error("You are already enrolled in this course.");
+        }
+        throw error;
+    }
+}
 }
 module.exports = UserService;
