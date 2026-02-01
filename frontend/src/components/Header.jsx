@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './Header.css';
 import logo from '../assets/images/icons/logo.png';
@@ -7,12 +7,12 @@ const Header = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
   
-  // Roles from your DB: 'admin', 'instructor'
   const userRole = localStorage.getItem('userRole'); 
   const token = localStorage.getItem('token');
-  // Dynamic greeting: pulls the actual username stored during login
-  const username = localStorage.getItem('username');
-  console.log("Current Username in Storage:", username); // Check your browser console
+  
+  // FIX: Matches 'userName' exactly as saved in your Login.jsx
+  const username = localStorage.getItem('userName') || 'User';
+
   const handleLogout = () => {
     localStorage.clear();
     navigate('/login');
@@ -47,27 +47,33 @@ const Header = () => {
 
               {showDropdown && (
                 <div className="profile-dropdown">
+                  {/* Clickable Admin Panel Label - Only for Admins */}
                   {userRole === 'admin' && (
                     <Link to="/admin" className="dropdown-admin-link" onClick={() => setShowDropdown(false)}>
                       ⚙️ ADMIN PANEL
                     </Link>
                   )}
                   
-                  <Link to="/profile" className="dropdown-item" onClick={() => setShowDropdown(false)}>Edit Profile</Link>
+                  <Link to="/profile" className="dropdown-item" onClick={() => setShowDropdown(false)}>
+                    Edit Profile
+                  </Link>
                   
-                  {(userRole === 'instructor' || userRole === 'admin') && (
-                    <Link to="/teacher/dashboard" className="dropdown-item" onClick={() => setShowDropdown(false)}>My Courses</Link>
-                  )}
+                  {/* FIX: Removed the role check so 'My Courses' shows for EVERY user */}
+                  <Link to="/teacher/dashboard" className="dropdown-item" onClick={() => setShowDropdown(false)}>
+                    My Courses
+                  </Link>
                   
                   <hr className="dropdown-divider" />
                   
-                  <button className="dropdown-item logout-link" onClick={handleLogout}>Log Out</button>
+                  <button className="dropdown-item logout-link" onClick={handleLogout}>
+                    Log Out
+                  </button>
 
+                  {/* Create Course - Still only for Instructors and Admins */}
                   {(userRole === 'instructor' || userRole === 'admin') && (
                     <button 
                       className="btn-create-shortcut" 
                       onClick={() => {
-                        // Redirects to the specific create page
                         navigate('/teacher/create-course');
                         setShowDropdown(false);
                       }}

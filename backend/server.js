@@ -10,6 +10,7 @@ const authRoutes = require('./src/routes/authRoutes');
 const courseRoutes = require('./src/routes/courseRoutes');
 const planRoutes = require('./src/routes/planRoutes');
 const errorHandler = require('./src/utils/errorHandler');
+const categoryRoutes = require('./src/routes/categoryRoutes');
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/courses', courseRoutes);
 app.use('/api/plans', planRoutes);
+app.use('/api/categories', categoryRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {

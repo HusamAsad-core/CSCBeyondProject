@@ -1,0 +1,113 @@
+/* Container for the whole page */
+.create-course-page {
+  padding: 40px 20px;
+  background-color: #f8f9fa; /* Light grey background like the rest of the site */
+  min-height: calc(100vh - 80px); /* Adjust for header height */
+  display: flex;
+  justify-content: center;
+}
+
+/* The white form card */
+.create-course-card {
+  background: #ffffff;
+  width: 100%;
+  max-width: 850px;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+/* Page Title styling to match Login */
+.create-course-title {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.title-blue { color: #2980b9; }
+.title-orange { color: #f39c12; }
+
+/* Form Layout */
+.course-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* Grouping labels and inputs */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input-group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #34495e;
+}
+
+/* Styling for Inputs, Textareas, and Selects */
+.course-input, 
+.course-textarea, 
+.course-select {
+  padding: 14px;
+  border: 1.5px solid #dfe6e9;
+  border-radius: 10px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.course-input:focus, 
+.course-textarea:focus, 
+.course-select:focus {
+  border-color: #2980b9;
+  box-shadow: 0 0 0 4px rgba(41, 128, 185, 0.1);
+}
+
+.course-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* The Orange Submit Button */
+.btn-submit-course {
+  background: #f39c12;
+  color: white;
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.3s;
+  margin-top: 10px;
+}
+
+.btn-submit-course:hover {
+  background: #e67e22;
+  transform: translateY(-2px);
+}
+
+.btn-submit-course:active {
+  transform: translateY(0);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .create-course-card {
+    padding: 25px;
+  }
+}

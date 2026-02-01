@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import CreateCourse from './pages/Teacher/CreateCourse';
 
+
 // Admin Pages
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import CreateTeacher from './pages/Admin/CreateTeacher';
