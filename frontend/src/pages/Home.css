@@ -1,8 +1,291 @@
-/* ... Keep all your existing CSS above ... */
+/* =========================
+   GLOBAL LOOK (Figma vibe)
+   ========================= */
+.home-wrapper {
+  padding: 50px 6%;
+  background: #ffffff;
+}
 
-/* --- WHO CAN JOIN SECTION --- */
+/* Colors from your UI */
+:root {
+  --iris: #0d2a5a;
+  --iris-2: #0b3d7a;
+  --orange: #f48c06;
+  --soft: #f7f8fb;
+  --text: #2b2b2b;
+  --muted: #6b7280;
+}
+
+/* =========================
+   HERO
+   ========================= */
+.hero-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+  padding-top: 10px;
+}
+
+.hero-left {
+  flex: 1.05;
+  max-width: 560px;
+}
+
+.hero-title {
+  font-size: 48px;
+  line-height: 1.05;
+  font-weight: 800;
+  color: var(--iris);
+  margin: 0 0 14px;
+}
+
+.hero-subtitle {
+  color: var(--muted);
+  font-weight: 600;
+  margin: 0 0 18px;
+}
+
+.hero-search-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.hero-search-input {
+  flex: 1;
+  height: 46px;
+  border-radius: 999px;
+  border: 1px solid #e9eef5;
+  padding: 0 18px;
+  outline: none;
+  font-weight: 600;
+  color: var(--text);
+  background: #fff;
+  box-shadow: 0 10px 24px rgba(13, 42, 90, 0.06);
+}
+
+.hero-search-btn {
+  height: 46px;
+  padding: 0 22px;
+  border-radius: 999px;
+  border: none;
+  background: var(--iris);
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(13, 42, 90, 0.12);
+}
+
+.hero-pills {
+  display: flex;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.hero-pill {
+  border: 1px solid #eef1f6;
+  background: #f3f4f6;
+  color: #374151;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.hero-pill.active {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+}
+
+.hero-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.hero-image-relative {
+  position: relative;
+  width: 520px;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-bg-shape {
+  position: absolute;
+  right: 55px;
+  top: 35px;
+  width: 220px;
+  opacity: 0.95;
+  z-index: 1;
+}
+
+.main-hero-img {
+  width: 440px;
+  max-width: 100%;
+  z-index: 2;
+}
+
+.best-seller-overlay-large {
+  position: absolute;
+  left: 55px;
+  top: 190px;
+  width: 140px;
+  z-index: 3;
+  filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.12));
+}
+
+/* =========================
+   Divider
+   ========================= */
+.section-divider {
+  width: 100px;
+  display: block;
+  margin: 42px 0;
+  opacity: 0.85;
+}
+
+/* =========================
+   AI PLATFORM SECTION
+   ========================= */
+.platform-intro {
+  padding: 10px 0 30px;
+}
+
+.platform-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+}
+
+.platform-left {
+  flex: 0.9;
+}
+
+.platform-title {
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1.15;
+  margin: 0;
+  color: var(--iris);
+}
+
+.text-orange {
+  color: var(--orange);
+}
+
+.platform-right {
+  flex: 1.1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Carousel container */
+.ai-carousel {
+  width: 100%;
+  max-width: 980px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Track */
+.ai-track {
+  display: flex;
+  gap: 28px;
+  transition: transform 600ms ease;
+  will-change: transform;
+}
+
+/* Card (match figma size/feel) */
+.ai-card {
+  width: 280px;
+  height: 150px;
+  border-radius: 12px;
+  background: #fff3ea; /* figma-like warm background */
+  border: 1px solid #f0e2d8;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  flex: 0 0 auto;
+}
+
+.ai-card.active {
+  outline: 2px solid #2f80ed;
+  outline-offset: -2px;
+}
+
+/* Image side */
+.ai-card-top {
+  width: 120px;
+  height: 120px;
+  border-radius: 10px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ai-card-img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+}
+
+/* Text side */
+.ai-card-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ai-card-title {
+  font-weight: 700;
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.1;
+}
+
+.ai-card-highlight {
+  font-weight: 900;
+  color: var(--orange);
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+/* Dots */
+.ai-dots {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+.ai-dot {
+  width: 22px;
+  height: 4px;
+  border-radius: 999px;
+  border: none;
+  background: #e5e7eb;
+  cursor: pointer;
+}
+
+.ai-dot.on {
+  background: var(--orange);
+}
+
+/* =========================
+   WHO CAN JOIN
+   ========================= */
 .who-join-section {
-  padding: 100px 0;
+  padding: 80px 0;
 }
 
 .who-join-content {
@@ -13,32 +296,32 @@
 }
 
 .section-tag-orange {
-  color: #f48c06;
+  color: var(--orange);
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 1.5px;
   margin-bottom: 15px;
 }
 
 .who-join-title {
   font-size: 42px;
-  color: #0d2a5a;
+  color: var(--iris);
   font-weight: 800;
   line-height: 1.2;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 }
 
 .who-join-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 40px;
+  gap: 34px 44px;
 }
 
 .join-card {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 15px;
+  gap: 14px;
 }
 
 .join-card img {
@@ -52,62 +335,64 @@
 }
 
 .join-number {
-  color: #0d2a5a;
-  font-weight: 800;
-  font-size: 20px;
+  color: var(--iris);
+  font-weight: 900;
+  font-size: 18px;
   margin-right: 12px;
 }
 
 .join-info p {
-  font-size: 15px;
-  color: #444;
-  font-weight: 600;
-  max-width: 180px;
+  font-size: 14px;
+  color: #4b5563;
+  font-weight: 700;
+  max-width: 220px;
+  margin: 0;
 }
 
 .collaborative-img {
   width: 100%;
-  max-width: 550px;
+  max-width: 560px;
 }
 
-/* --- HOW IT WORKS SECTION (BIGGER BOX) --- */
+/* =========================
+   HOW IT WORKS
+   ========================= */
 .how-works-outer {
-  padding: 120px 0;
+  padding: 110px 0;
   position: relative;
 }
 
 .how-works-container {
   position: relative;
-  max-width: 1200px; /* Made the container wider */
+  max-width: 1200px;
   margin: 0 auto;
 }
 
 .how-works-blue-box {
-  background-color: #0d2a5a; /* Iris Blue */
   border-radius: 50px;
-  padding: 100px 60px; /* Increased padding for a "bigger" feel */
+  padding: 100px 60px;
   text-align: center;
   box-shadow: 0 20px 50px rgba(13, 42, 90, 0.2);
 }
 
 .how-works-pill {
   position: absolute;
-  top: -30px; /* Sits on the top border */
+  top: -30px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #f48c06; /* Orange */
+  background-color: var(--orange);
   color: white;
-  padding: 15px 50px;
-  border-radius: 15px;
-  font-weight: 700;
-  font-size: 24px;
+  padding: 14px 50px;
+  border-radius: 12px;
+  font-weight: 900;
+  font-size: 22px;
   z-index: 10;
 }
 
 .how-works-main-img {
-  width: 100%;
+  width: 15000%;
   height: auto;
-  max-width: 1000px; /* Ensures the content inside looks large */
+  max-width: 1000px;
 }
 
 .how-works-circle-decor {
@@ -116,68 +401,63 @@
   top: -40px;
   width: 150px;
   z-index: 5;
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
-.section-divider {
-  width: 100px; /* Adjust size based on Figma proportion */
-  display: block;
-  margin: 40px 0; /* Space between divider and content */
-  opacity: 0.8;
-}
 
-/* --- POPULAR COURSES SECTION --- */
 .popular-courses-section {
-  padding: 80px 0;
+  padding: 70px 0;
   text-align: center;
 }
 
 .popular-title {
   font-size: 42px;
-  color: #0d2a5a;
-  font-weight: 800;
-  margin-bottom: 60px;
+  color: var(--iris);
+  font-weight: 900;
+  margin-bottom: 55px;
 }
 
 .courses-placeholder {
-  min-height: 200px; /* Placeholder until DB logic is added */
+  min-height: 140px;
   width: 100%;
 }
 
 .view-all-container {
-  margin-top: 50px;
+  margin-top: 36px;
   display: flex;
   justify-content: center;
 }
 
 .view-all-btn {
-  background-color: #0d2a5a; /* Iris Blue */
+  background-color: var(--iris);
   color: #ffffff;
   padding: 14px 45px;
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 900;
   border: none;
-  border-radius: 8px; /* Matching Figma's slightly rounded corners */
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
 .view-all-btn:hover {
-  background-color: #1a3c75;
+  background-color: #13356b;
   transform: translateY(-2px);
 }
 
-/* --- OUR ACHIEVEMENTS SECTION --- */
+/* =========================
+   ACHIEVEMENTS
+   ========================= */
 .achievements-section {
-  padding: 80px 0;
+  padding: 70px 0;
   text-align: center;
 }
 
 .achievements-title {
   font-size: 42px;
-  color: #0d2a5a;
-  font-weight: 800;
-  margin-bottom: 60px;
+  color: var(--iris);
+  font-weight: 900;
+  margin-bottom: 55px;
 }
 
 .achievements-container {
@@ -188,13 +468,13 @@
 }
 
 .achievements-left {
-  flex: 1.2;
+  flex: 1.15;
 }
 
 .achievements-main-img {
   width: 100%;
   height: auto;
-  max-width: 550px;
+  max-width: 560px;
 }
 
 .achievements-right {
@@ -204,14 +484,14 @@
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  gap: 18px;
 }
 
 .stat-card {
   background: #ffffff;
-  padding: 30px 20px;
+  padding: 26px 18px;
   border-radius: 22px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08); /* Soft Figma Shadow */
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -219,148 +499,134 @@
   text-align: left;
 }
 
-.card-bottom-full {
+.stat-card-full {
   grid-column: span 2;
-  flex-direction: row;
-  justify-content: flex-start;
-  padding: 25px 40px;
+  padding: 24px 34px;
 }
 
 .stat-header {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 14px;
 }
 
 .stat-number {
   font-size: 48px;
-  font-weight: 800;
-  color: #f48c06; /* Orange for stats */
+  font-weight: 900;
+  color: var(--orange);
   margin: 0;
 }
 
+.stat-number.text-blue {
+  color: var(--iris);
+}
+
 .stat-label {
-  font-size: 15px;
-  color: #0d2a5a;
-  font-weight: 700;
+  font-size: 14px;
+  color: var(--iris);
+  font-weight: 900;
   line-height: 1.3;
   margin: 0;
 }
 
-/* Specific styling for the 70% blue text if needed */
-.card-bottom-full .stat-number {
-  color: #0d2a5a; /* Job rate is blue in design */
-}
-
-/* --- MENTORS SECTION --- */
+/* =========================
+   MENTORS
+   ========================= */
 .mentors-section {
-  padding: 80px 0;
+  padding: 70px 0;
   text-align: center;
-  position: relative;
 }
 
 .mentors-title {
   font-size: 42px;
-  color: #0d2a5a;
-  font-weight: 800;
-  margin-bottom: 60px;
+  color: var(--iris);
+  font-weight: 900;
+  margin-bottom: 55px;
 }
 
 .mentors-container {
-  position: relative;
   width: 100%;
-  overflow: hidden; /* Clips the sliding cards */
-  padding: 20px 0;
+  overflow: hidden;
+  padding: 10px 0;
 }
 
 .mentors-slider {
   display: flex;
-  gap: 30px;
-  overflow-x: auto; /* Allows horizontal scrolling */
-  padding: 20px 40px;
+  gap: 26px;
+  overflow-x: auto;
+  padding: 18px 10px;
   scroll-behavior: smooth;
-  scrollbar-width: none; /* Hide scrollbar Firefox */
+  scrollbar-width: none;
 }
 
 .mentors-slider::-webkit-scrollbar {
-  display: none; /* Hide scrollbar Chrome/Safari */
+  display: none;
 }
 
 .mentor-card {
   min-width: 420px;
   background: #ffffff;
   border-radius: 30px;
-  padding: 35px;
+  padding: 32px;
   text-align: left;
   box-shadow: 0 15px 45px rgba(0, 0, 0, 0.07);
-  transition: transform 0.3s ease;
-}
-
-.mentor-card:hover {
-  transform: translateY(-5px);
 }
 
 .mentor-card-header {
   display: flex;
   align-items: center;
-  gap: 20px;
-  margin-bottom: 20px;
+  gap: 18px;
+  margin-bottom: 18px;
 }
 
 .mentor-img {
-  width: 80px;
-  height: 80px;
+  width: 78px;
+  height: 78px;
   border-radius: 50%;
   object-fit: cover;
 }
 
 .mentor-name {
-  font-size: 22px;
-  color: #0d2a5a;
-  font-weight: 800;
+  font-size: 20px;
+  color: var(--iris);
+  font-weight: 900;
   margin: 0;
 }
 
 .mentor-field {
-  font-size: 14px;
-  color: #f48c06;
-  font-weight: 600;
-  margin: 5px 0 0 0;
+  font-size: 13px;
+  color: var(--orange);
+  font-weight: 800;
+  margin: 6px 0 0;
 }
 
 .mentor-divider {
   border: none;
   border-top: 1px solid #eee;
-  margin: 20px 0;
+  margin: 18px 0;
 }
 
 .mentor-desc {
   font-size: 14px;
   color: #666;
-  line-height: 1.6;
+  line-height: 1.65;
   margin: 0;
 }
 
-.mentors-decor-circle {
-  position: absolute;
-  left: -50px;
-  bottom: 20px;
-  width: 120px;
-  z-index: -1;
-  opacity: 0.6;
-}
-
-/* --- CERTIFICATIONS SECTION --- */
+/* =========================
+   CERTIFICATIONS + COLLAB
+   ========================= */
 .certifications-section {
   padding: 60px 0;
   text-align: center;
 }
 
-.cert-title, .collab-title {
+.cert-title,
+.collab-title {
   font-size: 28px;
-  color: #0d2a5a;
-  font-weight: 800;
-  margin-bottom: 40px;
+  color: var(--iris);
+  font-weight: 900;
+  margin-bottom: 34px;
 }
 
 .cert-logos-row {
@@ -374,10 +640,8 @@
 .cert-logos-row img {
   height: 90px;
   width: auto;
-  transition: filter 0.3s;
 }
 
-/* --- COLLABORATIONS SECTION --- */
 .collaborations-section {
   padding: 60px 0 100px 0;
   text-align: center;
@@ -386,10 +650,1115 @@
 .collab-img-container {
   display: flex;
   justify-content: center;
-  margin-top: 30px;
+  margin-top: 26px;
 }
 
 .collab-main-img {
   max-width: 90%;
   height: auto;
 }
+
+/* =========================
+   Responsive
+   ========================= */
+@media (max-width: 1100px) {
+  .hero-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .hero-right {
+    width: 100%;
+    justify-content: center;
+  }
+  .platform-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .platform-right {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 700px) {
+  .hero-title {
+    font-size: 38px;
+  }
+  .platform-title {
+    font-size: 34px;
+  }
+  .who-join-title {
+    font-size: 34px;
+  }
+  .ai-card {
+    width: 260px;
+  }
+}
+
+.dots-divider {
+  width: 120px;          /* change to match Figma */
+  height: 14px;          /* dot row height */
+  margin: 40px 0;
+  opacity: 0.85;
+
+  /* 2 rows of dots (like Figma) */
+  background-image: radial-gradient(#f48c06 2px, transparent 2.5px);
+  background-size: 14px 14px;   /* distance between dots */
+  background-position: 0 0;
+  background-repeat: repeat;
+}
+
+/* -------------------------
+   NO PURPLE (focus/visited)
+-------------------------- */
+.home-wrapper a,
+.home-wrapper a:visited,
+.home-wrapper a:hover,
+.home-wrapper a:active {
+  color: inherit;
+  text-decoration: none;
+}
+
+.home-wrapper button:focus,
+.home-wrapper input:focus {
+  outline: none;
+}
+
+/* -------------------------
+   HORIZONTAL ORANGE DOTS (Figma-like)
+-------------------------- */
+/* ================================
+   HORIZONTAL 2-LINE DOT DIVIDER
+   (Like the screenshot)
+================================ */
+.dots-divider-horizontal {
+  width: 140px;
+  height: 22px;            /* two lines */
+  margin-top: 16px;
+
+  background-image: radial-gradient(#f48c06 2px, transparent 2.8px);
+  background-size: 14px 14px;
+  background-repeat: repeat;
+  background-position: 0 0;
+}
+
+
+/* -------------------------
+   AI dots under cards (no purple)
+-------------------------- */
+.ai-dots {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+.ai-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(13, 42, 90, 0.2); /* light blue/gray */
+  cursor: pointer;
+}
+
+.ai-dot.on {
+  background: #f48c06;
+}
+
+/* -------------------------
+   POPULAR COURSES (4 cards)
+-------------------------- */
+.popular-loading {
+  text-align: center;
+  font-weight: 700;
+  color: #0d2a5a;
+  margin: 10px 0 30px;
+}
+
+.popular-courses-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(220px, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+  margin-bottom: 25px;
+}
+
+@media (max-width: 1200px) {
+  .popular-courses-grid {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 650px) {
+  .popular-courses-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Card button wrapper (to be clickable like figma) */
+.popular-course-card {
+  border: none;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+
+/* Design similar to your figma course cards */
+.popular-course-card:focus {
+  outline: none;
+}
+
+.popular-card-top {
+  background: #0d2a5a;
+  border-radius: 12px 12px 0 0;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popular-card-logo {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  background: transparent;
+}
+
+.popular-card-logo-fallback {
+  width: 70px;
+  height: 70px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.15);
+}
+
+.popular-card-body {
+  background: #fff;
+  border: 1px solid #eee;
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+  padding: 14px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+  min-height: 140px;
+}
+
+.popular-card-title {
+  font-weight: 900;
+  color: #0d2a5a;
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+.popular-card-desc {
+  font-size: 12px;
+  color: #6b7280;
+  line-height: 1.4;
+  min-height: 34px;
+}
+
+.popular-card-btn {
+  margin-top: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #f48c06;
+  color: #fff;
+  font-weight: 800;
+  font-size: 12px;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+/* ================================
+   HARD OVERRIDE: REMOVE PURPLE
+   (Home page only)
+================================ */
+.home-wrapper {
+  --home-blue: #0d2a5a;  /* Iris blue (your theme blue) */
+  --home-orange: #f48c06;
+}
+
+/* Any element that accidentally becomes purple */
+.home-wrapper,
+.home-wrapper * {
+  color: inherit;
+}
+
+/* Force ALL headings to be the theme blue (not purple) */
+.home-wrapper h1,
+.home-wrapper h2,
+.home-wrapper h3,
+.home-wrapper h4,
+.home-wrapper h5,
+.home-wrapper h6 {
+  color: var(--home-blue) !important;
+}
+
+/* Keep orange exactly as is */
+.home-wrapper .text-orange,
+.home-wrapper .section-tag-orange,
+.home-wrapper .hero-search-btn,
+.home-wrapper .ai-dot.on,
+.home-wrapper .popular-card-btn {
+  color: inherit;
+}
+
+/* Kill purple links / visited states */
+.home-wrapper a,
+.home-wrapper a:visited,
+.home-wrapper a:hover,
+.home-wrapper a:active {
+  color: var(--home-blue) !important;
+  text-decoration: none !important;
+}
+
+/* Kill purple focus ring / outline */
+.home-wrapper button:focus,
+.home-wrapper input:focus,
+.home-wrapper textarea:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+.mentors-title {
+  color: #0d2a5a !important;
+}
+
+.mentors-title .text-orange {
+  color: #f48c06 !important;
+}
+
+/* =========================
+   GLOBAL LOOK (Figma vibe)
+   ========================= */
+:root {
+  --iris: #0d2a5a;
+  --orange: #f48c06;
+  --soft: #f7f8fb;
+  --text: #2b2b2b;
+  --muted: #6b7280;
+}
+
+.home-wrapper {
+  padding: 50px 6%;
+  background: #ffffff;
+}
+
+/* =========================
+   HERO
+   ========================= */
+.hero-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+  padding-top: 10px;
+}
+
+.hero-left {
+  flex: 1.05;
+  max-width: 560px;
+}
+
+.hero-title {
+  font-size: 48px;
+  line-height: 1.05;
+  font-weight: 800;
+  margin: 0 0 14px;
+}
+
+.hero-subtitle {
+  color: var(--muted);
+  font-weight: 600;
+  margin: 0 0 18px;
+}
+
+.hero-search-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.hero-search-input {
+  flex: 1;
+  height: 46px;
+  border-radius: 999px;
+  border: 1px solid #e9eef5;
+  padding: 0 18px;
+  outline: none;
+  font-weight: 600;
+  color: var(--text);
+  background: #fff;
+  box-shadow: 0 10px 24px rgba(13, 42,90, 0.06);
+}
+
+.hero-search-btn {
+  height: 46px;
+  padding: 0 22px;
+  border-radius: 999px;
+  border: none;
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(13, 42, 90, 0.12);
+}
+
+.hero-pills {
+  display: flex;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.hero-pill {
+  border: 1px solid #eef1f6;
+  background: #f3f4f6;
+  color: #374151;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.hero-pill.active {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+}
+
+.hero-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.hero-image-relative {
+  position: relative;
+  width: 520px;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-bg-shape {
+  position: absolute;
+  right: 55px;
+  top: 35px;
+  width: 220px;
+  opacity: 0.95;
+  z-index: 1;
+}
+
+.main-hero-img {
+  width: 440px;
+  max-width: 100%;
+  z-index: 2;
+}
+
+.best-seller-overlay-large {
+  position: absolute;
+  left: 55px;
+  top: 190px;
+  width: 140px;
+  z-index: 3;
+  filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.12));
+}
+
+/* =========================================================
+   HORIZONTAL DOT DIVIDER (2 rows) - USE THIS IN JSX:
+   <div className="dots-divider-horizontal" />
+   ========================================================= */
+.dots-divider-horizontal {
+  width: 160px;
+  height: 22px; /* two rows */
+  margin: 38px 0;
+  opacity: 0.85;
+
+  background-image: radial-gradient(var(--orange) 2px, transparent 2.8px);
+  background-size: 14px 14px;
+  background-repeat: repeat;
+  background-position: 0 0;
+}
+
+/* =========================
+   AI PLATFORM SECTION
+   ========================= */
+.platform-intro {
+  padding: 10px 0 30px;
+}
+
+.platform-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+}
+
+.platform-left {
+  flex: 0.9;
+}
+
+.platform-title {
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1.15;
+  margin: 0;
+}
+
+/* Make "Online Learning Platform" orange */
+.platform-title .text-orange {
+  color: var(--orange) !important;
+}
+
+/* Also allow generic .text-orange usage */
+.text-orange {
+  color: var(--orange);
+}
+
+.platform-right {
+  flex: 1.1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Carousel container */
+.ai-carousel {
+  width: 100%;
+  max-width: 980px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Track */
+.ai-track {
+  display: flex;
+  gap: 28px;
+  transition: transform 600ms ease;
+  will-change: transform;
+}
+
+/* Card */
+.ai-card {
+  width: 280px;
+  height: 150px;
+  border-radius: 12px;
+  background: #fff3ea;
+  border: 1px solid #f0e2d8;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  flex: 0 0 auto;
+}
+
+.ai-card.active {
+  outline: 2px solid #2f80ed;
+  outline-offset: -2px;
+}
+
+.ai-card-top {
+  width: 120px;
+  height: 120px;
+  border-radius: 10px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ai-card-img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+}
+
+.ai-card-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ai-card-title {
+  font-weight: 700;
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.1;
+}
+
+.ai-card-highlight {
+  font-weight: 900;
+  color: var(--orange);
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+/* Dots under AI cards (NO purple) */
+.ai-dots {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+.ai-dot {
+  width: 22px;
+  height: 4px;
+  border-radius: 999px;
+  border: none;
+  background: #e5e7eb;
+  cursor: pointer;
+}
+
+.ai-dot.on {
+  background: var(--orange);
+}
+
+/* =========================
+   WHO CAN JOIN
+   ========================= */
+.who-join-section {
+  padding: 80px 0;
+}
+
+.who-join-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+}
+
+/* Make WHO CAN JOIN orange */
+.section-tag-orange {
+  color: var(--orange) !important;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  margin-bottom: 15px;
+}
+
+.who-join-title {
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 40px;
+}
+
+.who-join-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 34px 44px;
+}
+
+.join-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.join-card img {
+  height: 55px;
+  width: auto;
+}
+
+.join-info {
+  display: flex;
+  align-items: center;
+}
+
+.join-number {
+  font-weight: 900;
+  font-size: 18px;
+  margin-right: 12px;
+}
+
+.join-info p {
+  font-size: 14px;
+  color: #4b5563;
+  font-weight: 700;
+  max-width: 220px;
+  margin: 0;
+}
+
+.collaborative-img {
+  width: 100%;
+  max-width: 560px;
+}
+
+/* =========================
+   HOW IT WORKS
+   ========================= */
+.how-works-outer {
+  padding: 110px 0;
+  position: relative;
+}
+
+.how-works-container {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Force the box to iris blue (remove any purple vibe) */
+.how-works-blue-box {
+  border-radius: 50px;
+  padding: 100px 60px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(13, 42, 90, 0.2);
+}
+
+.how-works-pill {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--orange);
+  color: white;
+  padding: 14px 50px;
+  border-radius: 12px;
+  font-weight: 900;
+  font-size: 22px;
+  z-index: 10;
+}
+
+/* FIX: your old CSS had width: 15000% (breaks layout) */
+.how-works-main-img {
+  width: 100%;
+  height: auto;
+  max-width: 1000px;
+}
+
+.how-works-circle-decor {
+  position: absolute;
+  right: -60px;
+  top: -40px;
+  width: 150px;
+  z-index: 5;
+  opacity: 0.85;
+}
+
+/* =========================
+   POPULAR COURSES
+   ========================= */
+.popular-courses-section {
+  padding: 70px 0;
+  text-align: center;
+}
+
+.popular-title {
+  font-size: 42px;
+  font-weight: 900;
+  margin-bottom: 55px;
+}
+
+/* Make only the word "Courses" orange
+   (Works if your JSX is: Popular <span className="text-orange">Courses</span>) */
+.popular-title .text-orange {
+  color: var(--orange) !important;
+}
+
+.courses-placeholder {
+  min-height: 140px;
+  width: 100%;
+}
+
+/* Button: iris blue bg + white text */
+.view-all-container {
+  margin-top: 36px;
+  display: flex;
+  justify-content: center;
+}
+
+.view-all-btn {
+  background-color: var(--iris) !important;
+  color: #ffffff !important;
+  padding: 14px 45px;
+  font-size: 16px;
+  font-weight: 900;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.view-all-btn:hover {
+  background-color: #13356b;
+  transform: translateY(-2px);
+}
+
+/* Popular 4 cards grid */
+.popular-loading {
+  text-align: center;
+  font-weight: 700;
+  margin: 10px 0 30px;
+}
+
+.popular-courses-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(220px, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+  margin-bottom: 25px;
+}
+
+@media (max-width: 1200px) {
+  .popular-courses-grid {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 650px) {
+  .popular-courses-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.popular-course-card {
+  border: none;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+
+.popular-course-card:focus {
+  outline: none;
+}
+
+.popular-card-top {
+  border-radius: 12px 12px 0 0;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popular-card-logo {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  background: transparent;
+}
+
+.popular-card-logo-fallback {
+  width: 70px;
+  height: 70px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.popular-card-body {
+  background: #fff;
+  border: 1px solid #eee;
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+  padding: 14px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+  min-height: 140px;
+}
+
+.popular-card-title {
+  font-weight: 900;
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+.popular-card-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.4;
+  min-height: 34px;
+}
+
+.popular-card-btn {
+  margin-top: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--orange);
+  color: #fff;
+  font-weight: 800;
+  font-size: 12px;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+/* =========================
+   ACHIEVEMENTS
+   ========================= */
+.achievements-section {
+  padding: 70px 0;
+  text-align: center;
+}
+
+.achievements-title {
+  font-size: 42px;
+  font-weight: 900;
+  margin-bottom: 55px;
+}
+
+/* Make Achievements word orange (if JSX: Our <span className="text-orange">Achievements</span>) */
+.achievements-title .text-orange {
+  color: var(--orange) !important;
+}
+
+.achievements-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.achievements-left {
+  flex: 1.15;
+}
+
+.achievements-main-img {
+  width: 100%;
+  height: auto;
+  max-width: 560px;
+}
+
+.achievements-right {
+  flex: 1;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.stat-card {
+  background: #ffffff;
+  padding: 26px 18px;
+  border-radius: 22px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+}
+
+.stat-card-full {
+  grid-column: span 2;
+  padding: 24px 34px;
+}
+
+.stat-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Make ALL numbers orange */
+.stat-number {
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--orange) !important;
+  margin: 0;
+}
+
+.stat-label {
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1.3;
+  margin: 0;
+}
+
+/* =========================
+   MENTORS
+   ========================= */
+.mentors-section {
+  padding: 70px 0;
+  text-align: center;
+}
+
+.mentors-title {
+  font-size: 42px;
+  font-weight: 900;
+  margin-bottom: 55px;
+}
+
+.mentors-title .text-orange {
+  color: var(--orange) !important;
+}
+
+.mentors-container {
+  width: 100%;
+  overflow: hidden;
+  padding: 10px 0;
+}
+
+.mentors-slider {
+  display: flex;
+  gap: 26px;
+  overflow-x: auto;
+  padding: 18px 10px;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.mentors-slider::-webkit-scrollbar {
+  display: none;
+}
+
+.mentor-card {
+  min-width: 420px;
+  background: #ffffff;
+  border-radius: 30px;
+  padding: 32px;
+  text-align: left;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.07);
+}
+
+.mentor-card-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.mentor-img {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.mentor-name {
+  font-size: 20px;
+  font-weight: 900;
+  margin: 0;
+}
+
+.mentor-field {
+  font-size: 13px;
+  color: var(--orange);
+  font-weight: 800;
+  margin: 6px 0 0;
+}
+
+.mentor-divider {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 18px 0;
+}
+
+.mentor-desc {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* =========================
+   CERTIFICATIONS + COLLAB
+   ========================= */
+.certifications-section {
+  padding: 60px 0;
+  text-align: center;
+}
+
+.cert-title,
+.collab-title {
+  font-size: 28px;
+  font-weight: 900;
+  margin-bottom: 34px;
+}
+
+/* Make "Certifications" and "Collaborations" words orange
+   (if JSX uses: Our <span className="text-orange">Certifications</span>) */
+.cert-title .text-orange,
+.collab-title .text-orange {
+  color: var(--orange) !important;
+}
+
+.cert-logos-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.cert-logos-row img {
+  height: 90px;
+  width: auto;
+}
+
+.collaborations-section {
+  padding: 60px 0 100px 0;
+  text-align: center;
+}
+
+.collab-img-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 26px;
+}
+
+.collab-main-img {
+  max-width: 90%;
+  height: auto;
+}
+
+/* =========================
+   HARD OVERRIDE: REMOVE PURPLE
+   ========================= */
+.home-wrapper a,
+.home-wrapper a:visited,
+.home-wrapper a:hover,
+.home-wrapper a:active {
+  color: inherit;
+  text-decoration: none;
+}
+
+.home-wrapper button:focus,
+.home-wrapper input:focus,
+.home-wrapper textarea:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* =========================
+   Responsive
+   ========================= */
+@media (max-width: 1100px) {
+  .hero-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .hero-right {
+    width: 100%;
+    justify-content: center;
+  }
+  .platform-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .platform-right {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 700px) {
+  .hero-title {
+    font-size: 38px;
+  }
+  .platform-title {
+    font-size: 34px;
+  }
+  .who-join-title {
+    font-size: 34px;
+  }
+  .ai-card {
+    width: 260px;
+  }
+}
+
