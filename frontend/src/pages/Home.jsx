@@ -1,3 +1,4 @@
+// Home.jsx
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Home.css";
@@ -19,8 +20,6 @@ import professionalIcon from "../assets/images/icons/Idividual_working_professio
 import startupIcon from "../assets/images/icons/startups.png";
 
 import howItWorksImg from "../assets/images/how_it_works.png";
-import bordersImg from "../assets/images/borders.png";
-
 import achievementsImg from "../assets/images/our_achievments.png";
 
 import teacherCardImg from "../assets/images/teacher_card.png";
@@ -32,7 +31,29 @@ import collaborationsImg from "../assets/images/collaboration_co.png";
 
 const API_BASE = "http://localhost:5000";
 
-const resolveImgSrc = (logoPath) => {
+/**
+ * Use this ONLY for files that are served from your backend:
+ * server.js has:  app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+ *
+ * So DB should store either:
+ *   - "/uploads/teacher1.png"   (recommended)
+ * or
+ *   - "uploads/teacher1.png"
+ */
+const resolveBackendImg = (imgPath) => {
+  if (!imgPath) return null;
+  if (imgPath.startsWith("http")) return imgPath;
+
+  // ensure a single leading slash
+  const normalized = imgPath.startsWith("/") ? imgPath : `/${imgPath}`;
+  return `${API_BASE}${normalized}`;
+};
+
+/**
+ * Course logos are currently working in your UI without backend prefix.
+ * So keep them FRONTEND-relative unless you later move them to /uploads.
+ */
+const resolveCourseLogo = (logoPath) => {
   if (!logoPath) return null;
   if (logoPath.startsWith("http")) return logoPath;
   if (logoPath.startsWith("/")) return logoPath;
@@ -43,7 +64,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   // ----------------------------
-  // Search (works -> goes to /courses?search=)
+  // Search
   // ----------------------------
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -55,7 +76,7 @@ const Home = () => {
   };
 
   // ----------------------------
-  // Slider (AI cards) auto move
+  // AI Slider (auto move)
   // ----------------------------
   const slides = useMemo(
     () => [
@@ -100,20 +121,18 @@ const Home = () => {
     const run = async () => {
       setPopularLoading(true);
       try {
-        // Must return all public courses
         const res = await fetch(`${API_BASE}/api/courses/public`);
         const data = await res.json();
 
         if (data?.success && Array.isArray(data?.data)) {
-          // Prefer status === "popular", fallback to first 4 opened courses
           const list = data.data;
 
           const popularOnly = list.filter((c) => c.status === "popular");
-          const opened = list.filter((c) => c.status === "active" || c.status === "popular");
+          const opened = list.filter(
+            (c) => c.status === "active" || c.status === "popular"
+          );
 
-          const picked =
-            (popularOnly.length ? popularOnly : opened).slice(0, 4);
-
+          const picked = (popularOnly.length ? popularOnly : opened).slice(0, 4);
           setPopularCourses(picked);
         } else {
           setPopularCourses([]);
@@ -130,31 +149,36 @@ const Home = () => {
   }, []);
 
   // ----------------------------
-  // Mentors (horizontal scroll like cards)
+  // Instructors (from users table where role='instructor')
+  // NOTE: this endpoint must exist in backend:
+  // GET  /api/users/instructors
+  // returns: { success:true, data:[{id, username, bio, image_path}] }
   // ----------------------------
-  const mentors = useMemo(
-    () => [
-      {
-        name: "Sandeep",
-        field: ".Net & Azure",
-        description:
-          "Sandeep is a Software Developer and expert in .NET & Azure. He has 14+ years of training 500+ students to accomplish their goals & dreams.",
-      },
-      {
-        name: "Sudhansu",
-        field: "Cloud & Cyber Security, Forensic",
-        description:
-          "Sudhansu is a Software Developer expert in cloud security, Cyber Security, Data Center & Forensics for more than 15 years.",
-      },
-      {
-        name: "Ruchika Tuteja",
-        field: "UI/UX Trainer",
-        description:
-          "I have 8 years of experience in Fullstack development. I have worked on multiple projects and provide real-time simulation of various development.",
-      },
-    ],
-    []
-  );
+  const [instructors, setInstructors] = useState([]);
+  const [instructorsLoading, setInstructorsLoading] = useState(true);
+
+  useEffect(() => {
+    const run = async () => {
+      setInstructorsLoading(true);
+      try {
+        const res = await fetch(`${API_BASE}/api/users/instructors`);
+        const data = await res.json();
+
+        if (data?.success && Array.isArray(data?.data)) {
+          setInstructors(data.data);
+        } else {
+          setInstructors([]);
+        }
+      } catch (e) {
+        console.error("Fetch instructors error:", e);
+        setInstructors([]);
+      } finally {
+        setInstructorsLoading(false);
+      }
+    };
+
+    run();
+  }, []);
 
   return (
     <div className="home-wrapper">
@@ -184,7 +208,6 @@ const Home = () => {
             </button>
           </form>
 
-          {/* Pills like your screenshot */}
           <div className="hero-pills">
             <button type="button" className="hero-pill active">
               IT Field
@@ -208,7 +231,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* AI PLATFORM (Figma-like) */}
+      {/* AI PLATFORM */}
       <section className="platform-intro">
         <div className="platform-row">
           <div className="platform-left">
@@ -217,7 +240,7 @@ const Home = () => {
               <span className="text-orange">Online Learning Platform</span>
             </h2>
 
-            {/* HORIZONTAL DOTS (like Figma) */}
+            {/* If you want the dotted decoration */}
             <div className="dots-divider-horizontal" aria-hidden="true" />
           </div>
 
@@ -254,7 +277,6 @@ const Home = () => {
                 ))}
               </div>
 
-              {/* Keep the dots UNDER the cards, but ensure NO purple */}
               <div className="ai-dots">
                 {slides.map((_, i) => (
                   <button
@@ -271,12 +293,12 @@ const Home = () => {
         </div>
       </section>
 
-
       {/* WHO CAN JOIN */}
       <section className="who-join-section">
         <div className="who-join-content">
           <div className="who-join-left">
             <h4 className="section-tag-orange">WHO CAN JOIN</h4>
+
             <h2 className="who-join-title">
               Skill Development <br /> Schemes For All
             </h2>
@@ -326,8 +348,6 @@ const Home = () => {
         </div>
       </section>
 
-      <img src={bordersImg} alt="" className="section-divider" />
-
       {/* HOW IT WORKS */}
       <section className="how-works-outer">
         <div className="how-works-container">
@@ -345,7 +365,6 @@ const Home = () => {
         </div>
       </section>
 
-
       {/* POPULAR COURSES (ONLY 4) */}
       <section className="popular-courses-section">
         <h2 className="popular-title">
@@ -357,7 +376,8 @@ const Home = () => {
         ) : (
           <div className="popular-courses-grid">
             {popularCourses.map((c) => {
-              const imgSrc = resolveImgSrc(c.logo_path);
+              const imgSrc = resolveCourseLogo(c.logo_path);
+
               return (
                 <button
                   key={c.id}
@@ -371,7 +391,10 @@ const Home = () => {
                         src={imgSrc}
                         alt={c.title}
                         className="popular-card-logo"
-                        onError={(e) => (e.currentTarget.style.display = "none")}
+                        onError={(e) => {
+                          // fallback to blank block if missing
+                          e.currentTarget.style.display = "none";
+                        }}
                       />
                     ) : (
                       <div className="popular-card-logo-fallback" />
@@ -384,9 +407,7 @@ const Home = () => {
                       {c.description || "No description."}
                     </div>
 
-                    <div className="popular-card-btn">
-                      View course
-                    </div>
+                    <div className="popular-card-btn">View course</div>
                   </div>
                 </button>
               );
@@ -400,7 +421,6 @@ const Home = () => {
           </button>
         </div>
       </section>
-
 
       {/* ACHIEVEMENTS */}
       <section className="achievements-section">
@@ -450,8 +470,7 @@ const Home = () => {
         </div>
       </section>
 
-
-      {/* MENTORS */}
+      {/* MENTORS (from DB instructors) */}
       <section className="mentors-section">
         <h2 className="mentors-title">
           Meet Our Professional <br />
@@ -459,26 +478,40 @@ const Home = () => {
         </h2>
 
         <div className="mentors-container">
-          <div className="mentors-slider">
-            {mentors.map((mentor, index) => (
-              <div key={index} className="mentor-card">
-                <div className="mentor-card-header">
-                  <img
-                    src={teacherCardImg}
-                    alt={mentor.name}
-                    className="mentor-img"
-                  />
-                  <div className="mentor-header-info">
-                    <h4 className="mentor-name">{mentor.name}</h4>
-                    <p className="mentor-field">{mentor.field}</p>
-                  </div>
-                </div>
+          {instructorsLoading ? (
+            <div className="popular-loading">Loading...</div>
+          ) : (
+            <div className="mentors-slider">
+              {instructors.map((u) => {
+                const imgSrc = resolveBackendImg(u.image_path);
 
-                <hr className="mentor-divider" />
-                <p className="mentor-desc">{mentor.description}</p>
-              </div>
-            ))}
-          </div>
+                return (
+                  <div key={u.id} className="mentor-card">
+                    <div className="mentor-card-header">
+                      <img
+                        src={imgSrc || teacherCardImg}
+                        alt={u.username || "Instructor"}
+                        className="mentor-img"
+                        onError={(e) => {
+                          e.currentTarget.src = teacherCardImg;
+                        }}
+                      />
+
+                      <div className="mentor-header-info">
+                        <h4 className="mentor-name">
+                          {u.username || "Instructor"}
+                        </h4>
+                      </div>
+                    </div>
+
+                    <hr className="mentor-divider" />
+
+                    <p className="mentor-desc">{u.bio || "No bio available."}</p>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </section>
 

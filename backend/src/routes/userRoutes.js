@@ -12,6 +12,7 @@ router.get('/my-enrollments', protect, UserController.getMyEnrollments);
 
 router.post('/complete-course', protect, UserController.completeCourse);
 
+router.get("/instructors", UserController.getInstructors);
 
 
 module.exports = router;

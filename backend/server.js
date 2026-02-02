@@ -11,7 +11,7 @@ const courseRoutes = require('./src/routes/courseRoutes');
 const planRoutes = require('./src/routes/planRoutes');
 const errorHandler = require('./src/utils/errorHandler');
 const categoryRoutes = require('./src/routes/categoryRoutes');
-
+const path = require("path");
 const app = express();
 
 // Middleware
@@ -27,6 +27,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/courses', courseRoutes);
 app.use('/api/plans', planRoutes);
 app.use('/api/categories', categoryRoutes);
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Health check
 app.get('/api/health', (req, res) => {

@@ -94,6 +94,24 @@ class UserService {
 
     return rows; // [{course_id: 26, status:'Enrolled'}, ...]
   }
+  static async getInstructors() {
+    // IMPORTANT: return only what you need
+    const [rows] = await db.query(
+      `
+      SELECT 
+        id,
+        username,
+        bio,
+        image_path,
+        created_at
+      FROM users
+      WHERE role = 'instructor'
+      ORDER BY created_at DESC
+      `
+    );
+
+    return rows;
+  }
 }
 
 module.exports = UserService;

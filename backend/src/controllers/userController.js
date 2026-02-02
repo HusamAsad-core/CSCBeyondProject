@@ -67,6 +67,14 @@ class UserController {
       return res.status(400).json({ success: false, error: error.message });
     }
   }
+  static async getInstructors(req, res) {
+    try {
+      const instructors = await UserService.getInstructors();
+      return res.status(200).json({ success: true, data: instructors });
+    } catch (error) {
+      return res.status(500).json({ success: false, error: error.message });
+    }
+  }
 }
 
 module.exports = UserController;
