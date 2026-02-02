@@ -1,0 +1,206 @@
+.courses-list-page {
+  padding: 60px 6%;
+  background: #ffffff;
+  min-height: 70vh;
+}
+
+.courses-list-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 35px;
+}
+
+.courses-title {
+  font-size: 42px;
+  font-weight: 800;
+  color: #0d2a5a;
+  margin: 0;
+}
+
+.courses-title span {
+  color: #f48c06;
+}
+
+.courses-tabs {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  width: 100%;
+  max-width: 900px;
+  justify-content: center;
+}
+
+.tab {
+  background: none;
+  border: none;
+  padding: 12px 18px;
+  font-weight: 700;
+  color: #6b7280;
+  cursor: pointer;
+  position: relative;
+}
+
+.tab.active {
+  color: #f48c06;
+}
+
+.tab.active::after {
+  content: "";
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: -1px;
+  height: 3px;
+  background: #f48c06;
+  border-radius: 4px;
+}
+
+.loading {
+  text-align: center;
+  color: #555;
+  font-weight: 600;
+}
+
+.courses-grid {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(240px, 1fr));
+  gap: 22px;
+}
+
+@media (max-width: 1200px) {
+  .courses-grid {
+    grid-template-columns: repeat(3, minmax(240px, 1fr));
+  }
+}
+@media (max-width: 900px) {
+  .courses-grid {
+    grid-template-columns: repeat(2, minmax(240px, 1fr));
+  }
+}
+@media (max-width: 600px) {
+  .courses-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.figma-card {
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  background: #fff;
+  border: 1px solid #f2f2f2;
+}
+
+.figma-card-top {
+  background: #0d2a5a;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.figma-card-img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  background: transparent;
+}
+
+.figma-card-img.placeholder {
+  width: 120px;
+  height: 120px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 14px;
+}
+
+.figma-card-body {
+  padding: 16px 16px 18px;
+  text-align: center;
+}
+
+.figma-card-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: #0d2a5a;
+}
+
+.figma-card-desc {
+  margin: 10px 0 10px;
+  font-size: 12px;
+  color: #6b7280;
+  min-height: 42px;
+  line-height: 1.4;
+}
+
+.figma-status {
+  font-size: 12px;
+  font-weight: 800;
+  color: #0d2a5a;
+  margin-bottom: 10px;
+}
+
+.figma-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.btn-live,
+.btn-enroll {
+  font-size: 11px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  border: 1px solid #f48c06;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 800;
+  color: #f48c06;
+  transition: 0.2s;
+}
+
+.btn-live:hover {
+  background: #fff7ef;
+}
+
+.btn-enroll {
+  color: #ffffff;
+  background: #f48c06;
+}
+
+.btn-enroll:hover {
+  background: #e07f05;
+}
+
+.btn-enroll.disabled,
+.btn-enroll:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-download {
+  width: 100%;
+  background: #f48c06;
+  border: none;
+  color: #fff;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-download:hover {
+  background: #e07f05;
+}
+
+.figma-meta {
+  margin-top: 10px;
+  font-size: 11px;
+  color: #6b7280;
+}

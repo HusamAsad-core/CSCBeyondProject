@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './Header.css';
 import logo from '../assets/images/icons/logo.png';
@@ -6,18 +6,22 @@ import logo from '../assets/images/icons/logo.png';
 const Header = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
-  
-  const userRole = localStorage.getItem('userRole'); 
+
+  const userRole = localStorage.getItem('userRole');
   const token = localStorage.getItem('token');
-  
-  // FIX: Matches 'userName' exactly as saved in your Login.jsx
   const username = localStorage.getItem('userName') || 'User';
 
   const handleLogout = () => {
     localStorage.clear();
     navigate('/login');
-    window.location.reload(); 
+    window.location.reload();
   };
+
+  // ✅ Role-based "My Courses" destination
+  const myCoursesPath =
+    (userRole === 'admin' || userRole === 'instructor')
+      ? '/teacher/dashboard'
+      : '/my-courses';
 
   return (
     <header className="main-header">
@@ -25,7 +29,7 @@ const Header = () => {
         <div className="logo-section">
           <Link to="/"><img src={logo} alt="EZY SKILLS" className="logo-img" /></Link>
         </div>
-        
+
         <nav className="nav-links">
           <Link to="/">Home</Link>
           <Link to="/courses">Courses</Link>
@@ -47,40 +51,31 @@ const Header = () => {
 
               {showDropdown && (
                 <div className="profile-dropdown">
-                  {/* Clickable Admin Panel Label - Only for Admins */}
                   {userRole === 'admin' && (
                     <Link to="/admin" className="dropdown-admin-link" onClick={() => setShowDropdown(false)}>
                       ⚙️ ADMIN PANEL
                     </Link>
                   )}
-                  
+
                   <Link to="/profile" className="dropdown-item" onClick={() => setShowDropdown(false)}>
                     Edit Profile
                   </Link>
-                  
-                  {/* FIX: Removed the role check so 'My Courses' shows for EVERY user */}
-                  <Link to="/teacher/dashboard" className="dropdown-item" onClick={() => setShowDropdown(false)}>
-                    My Courses
-                  </Link>
-                  
+
+                  <Link
+  to={userRole === "admin" || userRole === "instructor" ? "/teacher/dashboard" : "/my-courses"}
+  className="dropdown-item"
+  onClick={() => setShowDropdown(false)}
+>
+  My Courses
+</Link>
+
+
+
                   <hr className="dropdown-divider" />
-                  
+
                   <button className="dropdown-item logout-link" onClick={handleLogout}>
                     Log Out
                   </button>
-
-                  {/* Create Course - Still only for Instructors and Admins */}
-                  {(userRole === 'instructor' || userRole === 'admin') && (
-                    <button 
-                      className="btn-create-shortcut" 
-                      onClick={() => {
-                        navigate('/teacher/create-course');
-                        setShowDropdown(false);
-                      }}
-                    >
-                      + Create Course
-                    </button>
-                  )}
                 </div>
               )}
             </div>

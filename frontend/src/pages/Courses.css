@@ -1,0 +1,250 @@
+.courses-page {
+  background: #ffffff;
+  min-height: calc(100vh - 80px);
+  padding: 55px 0 80px 0;
+}
+
+.courses-wrap {
+  width: 92%;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* Title */
+.courses-title {
+  text-align: center;
+  font-size: 40px;
+  font-weight: 900;
+  margin: 0 0 28px 0;
+  color: #0d2a5a;
+  letter-spacing: 0.3px;
+}
+
+.courses-title span {
+  color: #f48c06;
+}
+
+/* Top Bar */
+.courses-bar {
+  display: grid;
+  grid-template-columns: 260px 1fr 220px;
+  align-items: center;
+  gap: 18px;
+  padding: 10px 0 22px 0;
+  border-bottom: 1px solid #f1f1f1;
+  margin-bottom: 28px;
+}
+
+.courses-search {
+  position: relative;
+}
+
+.courses-search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9aa7b4;
+  font-weight: 900;
+  font-size: 14px;
+}
+
+.courses-search-input {
+  width: 100%;
+  border: 1px solid #ededed;
+  background: #fafafa;
+  border-radius: 10px;
+  padding: 10px 12px 10px 34px;
+  outline: none;
+  font-size: 12px;
+  color: #2c3e50;
+}
+
+.courses-search-input:focus {
+  background: #fff;
+  border-color: #0d2a5a;
+  box-shadow: 0 0 0 3px rgba(13, 42, 90, 0.08);
+}
+
+/* Tabs */
+.courses-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 55px;
+}
+
+.courses-tab {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 800;
+  color: #7d8a96;
+  padding: 10px 2px;
+  border-bottom: 3px solid transparent;
+  transition: 0.2s;
+}
+
+.courses-tab.active {
+  color: #f48c06;
+  border-bottom-color: #f48c06;
+}
+
+/* Sort placeholder */
+.courses-sort {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  color: #7d8a96;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.courses-sort-box {
+  border: 1px solid #ededed;
+  background: #fafafa;
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: #2c3e50;
+  font-weight: 800;
+  font-size: 12px;
+  min-width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.courses-sort-arrow {
+  color: #7d8a96;
+}
+
+/* Grid like figma */
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+}
+
+@media (max-width: 1150px) {
+  .courses-grid { grid-template-columns: repeat(3, 1fr); }
+  .courses-bar { grid-template-columns: 1fr; gap: 14px; }
+  .courses-sort { justify-content: flex-start; }
+  .courses-tabs { justify-content: flex-start; gap: 22px; flex-wrap: wrap; }
+}
+
+@media (max-width: 850px) {
+  .courses-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 520px) {
+  .courses-grid { grid-template-columns: 1fr; }
+}
+
+/* Course Card (Figma style) */
+.course-card {
+  border-radius: 16px;
+  overflow: hidden;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Big blue header */
+.course-card-top {
+  background: #0d2a5a;
+  border-radius: 16px;
+  height: 210px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Logo in blue box */
+.course-logo {
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 18px rgba(0,0,0,0.18));
+}
+
+/* White panel */
+.course-card-body {
+  background: #ffffff;
+  border-radius: 16px;
+  margin: -28px 18px 0 18px; /* creates the overlap like figma */
+  padding: 18px 16px 14px 16px;
+  box-shadow: 0 14px 40px rgba(0,0,0,0.08);
+  text-align: center;
+  position: relative;
+}
+
+.course-name {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 900;
+  color: #1b2b4b;
+}
+
+.course-desc {
+  margin: 10px 0 12px 0;
+  font-size: 11px;
+  color: #6d7b88;
+  line-height: 1.35;
+  min-height: 44px;
+}
+
+/* two small pills */
+.course-small-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.course-pill {
+  border: 1px solid #f48c06;
+  background: #fff;
+  color: #f48c06;
+  font-size: 10px;
+  font-weight: 900;
+  padding: 6px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+/* big orange button */
+.course-download {
+  width: 100%;
+  border: none;
+  background: #f48c06;
+  color: #fff;
+  font-weight: 900;
+  font-size: 11px;
+  padding: 10px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.course-download:hover {
+  transform: translateY(-1px);
+  background: #e57f00;
+}
+
+/* small status label bottom right (optional) */
+.course-status {
+  margin-top: 10px;
+  font-size: 10px;
+  font-weight: 900;
+  color: #0d2a5a;
+  opacity: 0.65;
+}
+
+/* Loading / empty text */
+.courses-state {
+  text-align: center;
+  padding: 35px;
+  color: #6d7b88;
+  font-weight: 700;
+}

@@ -3,11 +3,18 @@ const router = express.Router();
 const CourseController = require('../controllers/courseController');
 const { protect, restrictTo } = require('../middleware/authMiddleware');
 
-// Public can see courses
-router.get('/', CourseController.getAllCourses);
-router.get('/:id', CourseController.getCourse);
+// ✅ PUBLIC first
+router.get('/public', CourseController.getPublicCourses);
+router.get('/public/:id', CourseController.getPublicCourseById);
 
-// LOCK THE DOOR: Only Instructors or Admins can create courses
+// ✅ Protected after
+router.get('/', protect, restrictTo('instructor', 'admin'), CourseController.getDashboardCourses);
+router.get('/:id', protect, restrictTo('instructor', 'admin'), CourseController.getCourse);
+
 router.post('/create', protect, restrictTo('instructor', 'admin'), CourseController.createCourse);
+router.put('/:id', protect, restrictTo('instructor', 'admin'), CourseController.updateCourse);
+
+router.put('/:id/instructor', protect, restrictTo('admin'), CourseController.updateCourseInstructor);
+router.delete('/:id', protect, restrictTo('instructor', 'admin'), CourseController.deleteCourse);
 
 module.exports = router;
