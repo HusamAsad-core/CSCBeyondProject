@@ -5,18 +5,31 @@ class AdminController {
   // 1. Feature: Create Teacher (Already working, kept for consistency)
   static async createTeacher(req, res, next) {
     try {
-      const { username, email, password } = req.body;
+      const { username, email, password, image_path } = req.body;
 
-      const [existingUser] = await promisePool.query('SELECT * FROM users WHERE email = ?', [email]);
+      const [existingUser] = await promisePool.query(
+        'SELECT * FROM users WHERE email = ?',
+        [email]
+      );
+
       if (existingUser.length > 0) {
-        return res.status(400).json({ success: false, message: "User with this email already exists" });
+        return res.status(400).json({
+          success: false,
+          message: "User with this email already exists"
+        });
       }
 
       const hashedPassword = await bcrypt.hash(password, 10);
 
+      // normalize: empty string => NULL
+      const normalizedImagePath =
+        typeof image_path === 'string' && image_path.trim() !== ''
+          ? image_path.trim()
+          : null;
+
       const [result] = await promisePool.query(
-        'INSERT INTO users (username, email, password_hash, role) VALUES (?, ?, ?, ?)',
-        [username, email, hashedPassword, 'instructor']
+        'INSERT INTO users (username, email, password_hash, role, image_path) VALUES (?, ?, ?, ?, ?)',
+        [username, email, hashedPassword, 'instructor', normalizedImagePath]
       );
 
       res.status(201).json({
@@ -28,6 +41,32 @@ class AdminController {
       next(error);
     }
   }
+
+  // 2. Feature: Edit User Role (Admin can promote/demote users)
+  static async editUserRole(req, res, next) {
+    try {
+      const { userId, newRole } = req.body;
+      const validRoles = ['student', 'instructor', 'admin'];
+
+      if (!validRoles.includes(newRole)) {
+        return res.status(400).json({ success: false, message: "Invalid role type" });
+      }
+
+      const [result] = await promisePool.query(
+        'UPDATE users SET role = ? WHERE id = ?',
+        [newRole, userId]
+      );
+
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ success: false, message: "User not found" });
+      }
+
+      res.status(200).json({ success: true, message: `User role updated to ${newRole}` });
+    } catch (error) {
+      next(error);
+    }
+  }
+
 
   // 2. Feature: Edit User Role (Admin can promote/demote users)
   static async editUserRole(req, res, next) {

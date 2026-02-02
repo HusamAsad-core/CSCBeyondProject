@@ -1762,3 +1762,26 @@
   }
 }
 
+/* Make the right side reach the browser border */
+.platform-right{
+  position: relative;
+  width: 100%;
+  justify-content: flex-end;
+  overflow: hidden; /* hides the overflow at the border like figma */
+}
+
+/* Bleed the carousel to the right edge (cancel home-wrapper right padding = 6%) */
+.ai-carousel{
+  max-width: none;
+  width: calc(100vw - 6%);   /* viewport minus left padding only */
+  margin-right: -6%;         /* push to the right border */
+  padding-right: 6%;         /* keep internal spacing so cards don't touch the edge too hard */
+  overflow: hidden;
+}
+
+/* Make cards start from the right side */
+.ai-track{
+  justify-content: flex-end;
+  padding-left: 28px; /* keeps a little breathing room on the left */
+}
+

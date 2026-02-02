@@ -68,6 +68,10 @@ const Header = () => {
 >
   My Courses
 </Link>
+<Link to="/messages" className="header-inbox-link">
+  Inbox
+</Link>
+
 
 
 

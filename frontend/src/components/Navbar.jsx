@@ -77,16 +77,14 @@ const Navbar = () => {
     Hey, <span className="user-name-bold">{userName}</span>
   </span>
 
-  <Link to="/messages" className="nav-inbox-btn" title="Inbox">
-  Inbox
-</Link>
-
-
-
-
+  {/* Inbox button */}
+  <Link to="/messages" className="nav-inbox-btn">
+    Inbox
+  </Link>
 
   <i className={`arrow-icon ${isDropdownOpen ? "open" : ""}`}></i>
 </div>
+
 
 
 

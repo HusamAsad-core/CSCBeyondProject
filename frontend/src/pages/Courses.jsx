@@ -2,55 +2,72 @@ import React, { useEffect, useMemo, useState } from "react";
 import "./Courses.css";
 
 const Courses = () => {
-  const [activeTab, setActiveTab] = useState("all"); // all | opened | coming_soon
+  // ============================================
+  // STATE MANAGEMENT
+  // ============================================
+  const [activeTab, setActiveTab] = useState("all");
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  // UI state
   const [search, setSearch] = useState("");
   const [enrollingId, setEnrollingId] = useState(null);
 
-  const token = localStorage.getItem("token"); // for enroll endpoint (protected)
+  const token = localStorage.getItem("token");
 
+  // ============================================
+  // HELPER FUNCTIONS
+  // ============================================
   const tabToQuery = (tab) => {
-    if (tab === "opened") return "opened";
-    if (tab === "coming_soon") return "coming_soon";
-    return "all";
+    const queryMap = {
+      all: "all",
+      opened: "opened",
+      coming_soon: "coming_soon",
+    };
+    return queryMap[tab] || "all";
   };
 
   const resolveImageSrc = (logoPath) => {
-    const raw = (logoPath || "").trim();
-    if (!raw || raw === "null" || raw === "undefined") return null;
-    if (raw.startsWith("http")) return raw;
-    if (raw.startsWith("/")) return raw;
-    return `/${raw}`;
+    if (!logoPath || logoPath === "null" || logoPath === "undefined") {
+      return null;
+    }
+    if (logoPath.startsWith("http")) return logoPath;
+    return logoPath.startsWith("/") ? logoPath : `/${logoPath}`;
   };
 
-  const statusLabel = (status) => {
-    if (status === "coming_soon") return "Coming Soon";
-    if (status === "popular") return "Opened";
-    return "Opened"; // active
+  const getStatusLabel = (status) => {
+    const statusLabels = {
+      coming_soon: "Coming Soon",
+      popular: "Popular",
+      active: "Opened",
+    };
+    return statusLabels[status] || "Opened";
   };
 
-  // ✅ Live Demo always clickable (we'll implement later)
+  // ============================================
+  // EVENT HANDLERS
+  // ============================================
   const handleLiveDemo = (course) => {
-    // Placeholder for later:
-    console.log("Live demo clicked for course:", course.id);
-    // Later you can navigate, open modal, etc.
+    console.log("🎥 Live demo requested for:", course.title);
+    // TODO: Implement live demo functionality
+    alert(`Opening live demo for ${course.title}...`);
   };
 
-  // ✅ Enroll Now: only for non-coming_soon
   const handleEnroll = async (course) => {
-    if (course.status === "coming_soon") return;
+    // Prevent enrollment for coming soon courses
+    if (course.status === "coming_soon") {
+      alert("⏳ This course is coming soon. Enrollment not available yet.");
+      return;
+    }
 
+    // Check authentication
     if (!token) {
-      alert("Please login first to enroll.");
+      alert("🔐 Please login to enroll in this course.");
       return;
     }
 
     setEnrollingId(course.id);
+
     try {
-      const res = await fetch("http://localhost:5000/api/users/select-course", {
+      const response = await fetch("http://localhost:5000/api/users/select-course", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -59,33 +76,49 @@ const Courses = () => {
         body: JSON.stringify({ course_id: course.id }),
       });
 
-      const data = await res.json();
+      const data = await response.json();
 
-      if (!res.ok || !data.success) {
-        alert(data.error || "Failed to enroll.");
-        return;
+      if (response.ok && data.success) {
+        alert(
+          `✅ Successfully enrolled in ${course.title}!\n\n📊 Remaining slots: ${data.remainingSlots}`
+        );
+      } else {
+        alert(`❌ ${data.error || "Failed to enroll in the course."}`);
       }
-
-      alert(`Successfully enrolled! Remaining slots: ${data.remainingSlots}`);
-    } catch (e) {
-      console.error("Enroll error:", e);
-      alert("Server error while enrolling.");
+    } catch (error) {
+      console.error("❌ Enrollment error:", error);
+      alert("⚠️ An error occurred while enrolling. Please try again.");
     } finally {
       setEnrollingId(null);
     }
   };
 
+  const handleDownloadCurriculum = (course) => {
+    console.log("📥 Download curriculum for:", course.title);
+    // TODO: Implement actual download
+    alert(`📄 Downloading curriculum for ${course.title}...`);
+  };
+
+  // ============================================
+  // FETCH COURSES
+  // ============================================
   useEffect(() => {
     const fetchCourses = async () => {
       setLoading(true);
       try {
-        const q = tabToQuery(activeTab);
-        const res = await fetch(`http://localhost:5000/api/courses/public?filter=${q}`);
-        const data = await res.json();
-        if (data.success) setCourses(Array.isArray(data.data) ? data.data : []);
-        else setCourses([]);
-      } catch (e) {
-        console.error("Failed to load courses:", e);
+        const query = tabToQuery(activeTab);
+        const response = await fetch(
+          `http://localhost:5000/api/courses/public?filter=${query}`
+        );
+        const data = await response.json();
+
+        if (data.success && Array.isArray(data.data)) {
+          setCourses(data.data);
+        } else {
+          setCourses([]);
+        }
+      } catch (error) {
+        console.error("❌ Failed to fetch courses:", error);
         setCourses([]);
       } finally {
         setLoading(false);
@@ -95,6 +128,9 @@ const Courses = () => {
     fetchCourses();
   }, [activeTab]);
 
+  // ============================================
+  // TABS CONFIGURATION
+  // ============================================
   const tabs = useMemo(
     () => [
       { key: "all", label: "All" },
@@ -104,123 +140,149 @@ const Courses = () => {
     []
   );
 
+  // ============================================
+  // FILTERED COURSES
+  // ============================================
   const filteredCourses = useMemo(() => {
-    const q = search.trim().toLowerCase();
-    if (!q) return courses;
-    return courses.filter((c) => {
-      const title = (c.title || "").toLowerCase();
-      const desc = (c.description || "").toLowerCase();
-      return title.includes(q) || desc.includes(q);
+    const searchQuery = search.trim().toLowerCase();
+    if (!searchQuery) return courses;
+
+    return courses.filter((course) => {
+      const title = (course.title || "").toLowerCase();
+      const description = (course.description || "").toLowerCase();
+      return title.includes(searchQuery) || description.includes(searchQuery);
     });
   }, [courses, search]);
 
+  // ============================================
+  // RENDER
+  // ============================================
   return (
     <div className="courses-page">
       <div className="courses-wrap">
+        {/* PAGE TITLE */}
         <h1 className="courses-title">
           Courses <span>List</span>
         </h1>
 
+        {/* CONTROL BAR */}
         <div className="courses-bar">
+          {/* SEARCH */}
           <div className="courses-search">
-            <span className="courses-search-icon">⌕</span>
+            <span className="courses-search-icon">🔍</span>
             <input
+              type="text"
               className="courses-search-input"
-              placeholder="Search The Course Here"
+              placeholder="Search here"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
 
+          {/* TABS */}
           <div className="courses-tabs">
-            {tabs.map((t) => (
+            {tabs.map((tab) => (
               <button
-                key={t.key}
+                key={tab.key}
                 type="button"
-                className={`courses-tab ${activeTab === t.key ? "active" : ""}`}
-                onClick={() => setActiveTab(t.key)}
+                className={`courses-tab ${activeTab === tab.key ? "active" : ""}`}
+                onClick={() => setActiveTab(tab.key)}
               >
-                {t.label}
+                {tab.label}
               </button>
             ))}
           </div>
 
+          {/* SORT */}
           <div className="courses-sort">
-            <span>Sort by :</span>
+            <span>Sort by:</span>
             <div className="courses-sort-box">
-              Popular Class <span className="courses-sort-arrow">▾</span>
+              Popular Class
+              <span className="courses-sort-arrow">▼</span>
             </div>
           </div>
         </div>
 
+        {/* CONTENT AREA */}
         {loading ? (
-          <div className="courses-state">Loading courses...</div>
+          <div className="courses-state">⏳ Loading courses...</div>
         ) : filteredCourses.length === 0 ? (
-          <div className="courses-state">No courses found.</div>
+          <div className="courses-state">
+            {search
+              ? "🔍 No courses found matching your search."
+              : "📚 No courses available at the moment."}
+          </div>
         ) : (
           <div className="courses-grid">
             {filteredCourses.map((course) => {
-              const imgSrc = resolveImageSrc(course.logo_path);
-              const shortDesc = (course.description || "").trim();
+              const imageSrc = resolveImageSrc(course.logo_path);
+              const description = course.description || "No description available.";
               const isComingSoon = course.status === "coming_soon";
-              const isEnrollingThis = enrollingId === course.id;
+              const isEnrolling = enrollingId === course.id;
 
               return (
                 <div key={course.id} className="course-card">
+                  {/* BLUE HEADER WITH LOGO */}
                   <div className="course-card-top">
                     <img
                       className="course-logo"
-                      src={imgSrc || "https://via.placeholder.com/140"}
-                      alt={course.title}
+                      src={imageSrc || "https://via.placeholder.com/120?text=No+Logo"}
+                      alt={`${course.title} logo`}
                       onError={(e) => {
-                        e.currentTarget.src = "https://via.placeholder.com/140";
+                        e.currentTarget.src =
+                          "https://via.placeholder.com/120?text=Error";
                       }}
                     />
                   </div>
 
+                  {/* WHITE CARD BODY */}
                   <div className="course-card-body">
+                    {/* TITLE */}
                     <h3 className="course-name">{course.title}</h3>
 
-                    <p className="course-desc">
-                      {shortDesc || "No description available."}
-                    </p>
+                    {/* DESCRIPTION */}
+                    <p className="course-desc">{description}</p>
 
+                    {/* ACTION PILLS */}
                     <div className="course-small-actions">
-                      {/* Live Demo: always clickable */}
                       <button
                         type="button"
                         className="course-pill"
                         onClick={() => handleLiveDemo(course)}
+                        title="View live demo"
                       >
                         Live Demo
                       </button>
 
-                      {/* Enroll Now: disabled if coming soon */}
                       <button
                         type="button"
                         className="course-pill"
                         onClick={() => handleEnroll(course)}
-                        disabled={isComingSoon || isEnrollingThis}
-                        style={
-                          isComingSoon || isEnrollingThis
-                            ? {
-                                opacity: 0.5,
-                                cursor: "not-allowed",
-                                pointerEvents: "none",
-                              }
-                            : undefined
+                        disabled={isComingSoon || isEnrolling}
+                        title={
+                          isComingSoon
+                            ? "Coming soon - enrollment disabled"
+                            : isEnrolling
+                            ? "Processing enrollment..."
+                            : "Enroll in this course"
                         }
-                        title={isComingSoon ? "Coming soon — enrollment disabled" : "Enroll now"}
                       >
-                        {isEnrollingThis ? "Enrolling..." : "Enroll Now"}
+                        {isEnrolling ? "Enrolling..." : "Enroll Now"}
                       </button>
                     </div>
 
-                    <button type="button" className="course-download">
+                    {/* DOWNLOAD BUTTON */}
+                    <button
+                      type="button"
+                      className="course-download"
+                      onClick={() => handleDownloadCurriculum(course)}
+                      title="Download course curriculum"
+                    >
                       Download Curriculum
                     </button>
 
-                    <div className="course-status">{statusLabel(course.status)}</div>
+                    {/* STATUS */}
+                    <div className="course-status">{getStatusLabel(course.status)}</div>
                   </div>
                 </div>
               );
