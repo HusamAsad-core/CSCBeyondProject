@@ -40,6 +40,7 @@ const Login = () => {
         // Save auth data
         localStorage.setItem('token', data.token);
         // We use data.user.role and data.user.username based on your backend controller
+        localStorage.setItem("userId", data.user.id);
         localStorage.setItem('userRole', data.user.role); 
         localStorage.setItem('userName', data.user.username || data.user.name || formData.email.split('@')[0]);
         

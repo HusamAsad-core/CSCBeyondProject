@@ -154,3 +154,115 @@
 .dropdown-logout-btn:hover {
   background-color: #fff5f5;
 }
+
+.nav-inbox {
+  font-size: 18px;
+  margin-left: 14px;
+  text-decoration: none;
+}
+
+/* Inbox button beside Hey user 
+
+/* Admin link style (keep your orange, no emoji) */
+.admin-link {
+  color: #f48c06 !important;
+  font-weight: 900 !important;
+}
+
+
+
+/* ✅ make the right area flex and visible */
+.user-info-trigger {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+
+
+/* ✅ prevent it from being clipped */
+.user-profile-wrapper,
+.navbar-auth-section,
+.navbar-container {
+  overflow: visible !important;
+}
+
+/* make sure the right side doesn't clip anything */
+.navbar-container,
+.navbar-auth-section,
+.user-profile-wrapper,
+.user-info-trigger {
+  overflow: visible !important;
+}
+
+/* force proper layout */
+.user-info-trigger {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  position: relative;
+  z-index: 50;
+}
+
+
+
+/* make the icon visible (emoji can be hidden by font-size somewhere) */
+
+
+/* if arrow icon is absolutely positioned and covering things */
+.arrow-icon {
+  position: relative;
+  z-index: 5;
+}
+
+.user-info-trigger {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+
+.nav-inbox-btn {
+  margin-left: 12px;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(13, 42, 90, 0.10);
+  border: 1px solid rgba(13, 42, 90, 0.12);
+  text-decoration: none;
+  color: #0d2a5a;
+}
+
+.nav-inbox-btn:hover {
+  background: rgba(244, 140, 6, 0.18);
+  color: #f48c06;
+}
+
+.nav-inbox-svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+
+.nav-inbox-btn{
+  margin-left: 12px;
+  padding: 7px 12px;
+  border-radius: 10px;
+  background: rgba(13, 42, 90, 0.10);
+  border: 1px solid rgba(13, 42, 90, 0.12);
+  text-decoration: none;
+  color: #0d2a5a;
+  font-weight: 800;
+  font-size: 13px;
+  line-height: 1;
+}
+
+.nav-inbox-btn:hover{
+  background: rgba(244, 140, 6, 0.18);
+  color: #f48c06;
+}

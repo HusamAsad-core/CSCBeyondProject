@@ -3,6 +3,8 @@ const cors = require('cors');
 require('dotenv').config();
 
 // Imports
+
+const messageRoutes = require("./src/routes/messageRoutes");
 const promisePool = require('./src/config/db');
 const adminRoutes = require('./src/routes/adminRoutes');
 const userRoutes = require('./src/routes/userRoutes'); 
@@ -28,6 +30,9 @@ app.use('/api/courses', courseRoutes);
 app.use('/api/plans', planRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/api/messages", messageRoutes);
+
+
 
 // Health check
 app.get('/api/health', (req, res) => {

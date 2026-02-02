@@ -5,7 +5,7 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-
+import Messages from "./pages/Messages";
 import MyCourses from "./pages/Courses/MyCourses";
 
 // Teacher Pages
@@ -23,7 +23,7 @@ import ManagePlans from "./pages/Admin/ManagePlans";
 import CoursesList from "./pages/Courses/CoursesList";
 import CourseDetails from "./pages/Courses/CourseDetails";
 
-// ✅ Pricing page
+// Pricing page
 import Pricing from "./pages/Pricing";
 
 function App() {
@@ -44,28 +44,59 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
+          {/* Messages — logged-in users */}
+          <Route path="/messages" element={token ? <Messages /> : <Navigate to="/login" />} />
+
+
           {/* Admin */}
-          <Route path="/admin" element={userRole === "admin" ? <AdminDashboard /> : <Navigate to="/login" />} />
-          <Route path="/admin/create-teacher" element={userRole === "admin" ? <CreateTeacher /> : <Navigate to="/login" />} />
-          <Route path="/admin/users" element={userRole === "admin" ? <ManageUsers /> : <Navigate to="/login" />} />
-          <Route path="/admin/plans" element={userRole === "admin" ? <ManagePlans /> : <Navigate to="/login" />} />
+          <Route
+            path="/admin"
+            element={userRole === "admin" ? <AdminDashboard /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/admin/create-teacher"
+            element={userRole === "admin" ? <CreateTeacher /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/admin/users"
+            element={userRole === "admin" ? <ManageUsers /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/admin/plans"
+            element={userRole === "admin" ? <ManagePlans /> : <Navigate to="/login" />}
+          />
 
           {/* Teacher (Instructor + Admin) */}
           <Route
             path="/teacher/dashboard"
-            element={userRole === "instructor" || userRole === "admin" ? <TeacherDashboard /> : <Navigate to="/login" />}
+            element={
+              userRole === "instructor" || userRole === "admin"
+                ? <TeacherDashboard />
+                : <Navigate to="/login" />
+            }
           />
           <Route
             path="/teacher/create-course"
-            element={userRole === "instructor" || userRole === "admin" ? <CreateCourse /> : <Navigate to="/login" />}
+            element={
+              userRole === "instructor" || userRole === "admin"
+                ? <CreateCourse />
+                : <Navigate to="/login" />
+            }
           />
           <Route
             path="/teacher/courses/:id/edit"
-            element={userRole === "instructor" || userRole === "admin" ? <EditCourse /> : <Navigate to="/login" />}
+            element={
+              userRole === "instructor" || userRole === "admin"
+                ? <EditCourse />
+                : <Navigate to="/login" />
+            }
           />
 
-          {/* Student/Logged-in */}
-          <Route path="/my-courses" element={token ? <MyCourses /> : <Navigate to="/login" />} />
+          {/* Logged-in users */}
+          <Route
+            path="/my-courses"
+            element={token ? <MyCourses /> : <Navigate to="/login" />}
+          />
 
           {/* Fallback */}
           <Route path="*" element={<Navigate to="/" />} />
