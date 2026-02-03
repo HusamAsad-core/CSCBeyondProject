@@ -205,22 +205,27 @@ exports.sendMessage = async (req, res, next) => {
     }
 
     const [convRows] = await promisePool.query(
-      "SELECT id FROM conversations WHERE id = ? AND (user1_id = ? OR user2_id = ?) LIMIT 1",
-      [convId, myId, myId]
+      "SELECT user1_id, user2_id FROM conversations WHERE id = ? LIMIT 1",
+      [convId]
     );
 
     if (!convRows.length) {
       return res.status(403).json({ success: false, message: "Not allowed" });
     }
 
+    const user1 = Number(convRows[0].user1_id);
+    const user2 = Number(convRows[0].user2_id);
+
+    if (user1 !== myId && user2 !== myId) {
+      return res.status(403).json({ success: false, message: "Not allowed" });
+    }
+
+    const otherId = user1 === myId ? user2 : user1;
+
     const [result] = await promisePool.query(
       "INSERT INTO messages (conversation_id, sender_id, body) VALUES (?, ?, ?)",
       [convId, myId, body]
     );
-
-    try {
-      await promisePool.query("UPDATE conversations SET last_message_at = NOW() WHERE id = ?", [convId]);
-    } catch (_) {}
 
     const [meRows] = await promisePool.query(
       `SELECT COALESCE(username, SUBSTRING_INDEX(email,'@',1)) AS sender_username
@@ -232,19 +237,36 @@ exports.sendMessage = async (req, res, next) => {
       id: result.insertId,
       conversation_id: convId,
       sender_id: myId,
-      sender_username: meRows?.[0]?.sender_username || "You",
+      sender_username: meRows?.[0]?.sender_username || "User",
       body,
       created_at: new Date().toISOString(),
     };
 
-    // ✅ realtime broadcast
     const io = req.app.get("io");
-    if (io) io.to(`conv:${convId}`).emit("message:new", payload);
+
+    if (io) {
+      // open chat updates
+      io.to(`conv:${convId}`).emit("message:new", payload);
+
+      // sidebar updates for both users
+      io.to(`user:${myId}`).emit("conversation:update", {
+        id: convId,
+        last_message: body,
+        last_time: payload.created_at,
+      });
+
+      io.to(`user:${otherId}`).emit("conversation:update", {
+        id: convId,
+        last_message: body,
+        last_time: payload.created_at,
+      });
+    }
 
     res.json({ success: true, data: payload });
   } catch (err) {
     next(err);
   }
 };
+
 
 
