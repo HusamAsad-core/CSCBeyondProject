@@ -201,9 +201,7 @@ exports.sendMessage = async (req, res, next) => {
     const body = String(req.body.body || "").trim();
 
     if (!body) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Message is empty" });
+      return res.status(400).json({ success: false, message: "Message is empty" });
     }
 
     const [convRows] = await promisePool.query(
@@ -220,36 +218,33 @@ exports.sendMessage = async (req, res, next) => {
       [convId, myId, body]
     );
 
-    // optional: if you have last_message_at column, update it (ignore if not)
     try {
-      await promisePool.query(
-        "UPDATE conversations SET last_message_at = NOW() WHERE id = ?",
-        [convId]
-      );
+      await promisePool.query("UPDATE conversations SET last_message_at = NOW() WHERE id = ?", [convId]);
     } catch (_) {}
 
     const [meRows] = await promisePool.query(
-      `
-      SELECT COALESCE(username, SUBSTRING_INDEX(email,'@',1)) AS sender_username
-      FROM users
-      WHERE id = ?
-      LIMIT 1
-      `,
+      `SELECT COALESCE(username, SUBSTRING_INDEX(email,'@',1)) AS sender_username
+       FROM users WHERE id = ? LIMIT 1`,
       [myId]
     );
 
-    res.json({
-      success: true,
-      data: {
-        id: result.insertId,
-        conversation_id: convId,
-        sender_id: myId,
-        sender_username: meRows?.[0]?.sender_username || "You",
-        body,
-        created_at: new Date().toISOString(),
-      },
-    });
+    const payload = {
+      id: result.insertId,
+      conversation_id: convId,
+      sender_id: myId,
+      sender_username: meRows?.[0]?.sender_username || "You",
+      body,
+      created_at: new Date().toISOString(),
+    };
+
+    // ✅ realtime broadcast
+    const io = req.app.get("io");
+    if (io) io.to(`conv:${convId}`).emit("message:new", payload);
+
+    res.json({ success: true, data: payload });
   } catch (err) {
     next(err);
   }
 };
+
+
